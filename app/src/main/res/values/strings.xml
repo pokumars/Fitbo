@@ -33,5 +33,6 @@
     - %$4s
     - %$5s
     - %$6s</string>
+    <string name="step_count">Steps Count</string>
 
 </resources>
