@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.pokumars.fitbo.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.pokumars.fitbo.ui.today.TodayFragment"
+        android:label="@string/title_today"
+        tools:layout="@layout/fragment_today" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.pokumars.fitbo.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_suggestion"
+        android:name="com.pokumars.fitbo.ui.suggestion.SuggestionFragment"
+        android:label="@string/title_suggestion"
+        tools:layout="@layout/fragment_suggestion" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.pokumars.fitbo.ui.notifications.NotificationsFragment"
+        android:id="@+id/navigation_history"
+        android:name="com.pokumars.fitbo.ui.history.HistoryFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_history" />
 </navigation>

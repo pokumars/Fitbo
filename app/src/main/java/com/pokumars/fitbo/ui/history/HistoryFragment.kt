@@ -1,4 +1,4 @@
-package com.pokumars.fitbo.ui.dashboard
+package com.pokumars.fitbo.ui.history
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pokumars.fitbo.R
 
-class DashboardFragment : Fragment() {
+class HistoryFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var historyViewModel: HistoryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-            ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(this, Observer {
+        historyViewModel =
+            ViewModelProviders.of(this).get(HistoryViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_history, container, false)
+        val textView: TextView = root.findViewById(R.id.text_notifications)
+        historyViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root

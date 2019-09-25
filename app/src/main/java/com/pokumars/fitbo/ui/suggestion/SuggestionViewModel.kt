@@ -1,13 +1,13 @@
-package com.pokumars.fitbo.ui.home
+package com.pokumars.fitbo.ui.suggestion
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class SuggestionViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+        value = "This is suggestion Fragment"
     }
     val text: LiveData<String> = _text
 }
