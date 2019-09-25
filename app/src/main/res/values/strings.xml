@@ -3,4 +3,35 @@
     <string name="title_today">Today</string>
     <string name="title_suggestion">Suggestion</string>
     <string name="title_notifications">History</string>
+
+    <string name="start">Start</string>
+    <string name="walk">Walk</string>
+    <string name="run">Run</string>
+
+    <string name="steps_today">%$d1 steps today</string>
+    <string name="steps">%$d1 steps</string>
+
+    <string name="kcal">%$d1 kcal</string>
+    <string name="kcal_burnt">%$d1 kcal burnt</string>
+
+    <string name="km">%$d1 km</string>
+    <string name="distance_covered">%$d1 km covered</string>
+
+
+    <string name="weather_today">%$s1 weather today %$s2</string>
+    <string name="temperature">%$d1 °C</string>
+
+    <string name="cold_exercise_suggestions">It is cold in %$1s. Here are some exercises we could suggest
+    - %$2s
+    - %$3s
+    - %$4s
+    - %$5s
+    - %$6s</string>
+    <string name="warm_exercise_suggestions">It is cold in %$1s. Here are some exercises we could suggest
+    - %$2s
+    - %$3s
+    - %$4s
+    - %$5s
+    - %$6s</string>
+
 </resources>
