@@ -57,7 +57,7 @@ class TodayFragment : Fragment(),SensorEventListener {
         savedInstanceState: Bundle?
     ): View? {
         sensorManager = activity?.getSystemService(Context.SENSOR_SERVICE)as SensorManager
-         steps = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+         steps = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         todayViewModel =
             ViewModelProviders.of(this).get(TodayViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_today, container, false)
