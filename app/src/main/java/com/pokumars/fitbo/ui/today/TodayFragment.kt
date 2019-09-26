@@ -21,6 +21,8 @@ class TodayFragment : Fragment(),SensorEventListener {
     private lateinit var sensorManager:SensorManager
     private  var steps:Sensor? = null
     private var running = false
+
+
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 
     }
@@ -63,6 +65,19 @@ class TodayFragment : Fragment(),SensorEventListener {
         todayViewModel.text.observe(this, Observer {
             textView.text = it
         })
+
+
+
+
+
         return root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+
+        todayViewModel.createAlarmManager()//setAlarm
+        todayViewModel.setFirstTime()//turn thison so alarm is never set again
+        todayViewModel.setBootReceiverEnabled()//turn this on so bootreceiver will do its part and set new alarm after reboot of phone
+        super.onActivityCreated(savedInstanceState)
     }
 }
