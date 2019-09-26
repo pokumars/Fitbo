@@ -3,6 +3,7 @@ import retrofit2.Callback
 import retrofit2.Call
 import retrofit2.Response
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pokumars.fitbo.R
 import com.pokumars.fitbo.WeatherModel
+import com.pokumars.fitbo.data.WeatherApiService
+import com.pokumars.fitbo.data.WeatherResponse
 import kotlinx.android.synthetic.main.fragment_suggestion.*
+import kotlinx.android.synthetic.main.fragment_suggestion.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class SuggestionFragment : Fragment() {
@@ -43,11 +50,15 @@ class SuggestionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        callWebService("35","139")
+        val apiService = WeatherApiService()
+        GlobalScope.launch(Dispatchers.Main){
+            val weatherResponse = apiService.getCurrentWeather("london").await()
+            text_suggestion.text = weatherResponse.toString()
+        }
         suggestionViewModel =
             ViewModelProviders.of(this).get(SuggestionViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_suggestion, container, false)
-
+    root.text_suggestion.text =apiService.getCurrentWeather("London").toString()
         val textView: TextView = root.findViewById(R.id.text_suggestion)
         suggestionViewModel.text.observe(this, Observer {
             textView.text = it
