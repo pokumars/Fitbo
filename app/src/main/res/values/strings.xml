@@ -36,4 +36,6 @@
     - %$6s</string>
     <string name="step_count">Steps Count</string>
 
+    <string name="daily_graph_content_description">Daily activity graph</string>
+
 </resources>
