@@ -33,14 +33,12 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
 
     fun createAlarmManager(){
         appUsedBefore = preferencesHelper.getAppFirstUse()!!
-        Toast.makeText(getApplication(), "has app been used before---> ${appUsedBefore}", Toast.LENGTH_LONG).show()
-        Log.i(TAG, "has app been used before---> ${appUsedBefore}")
+        //Toast.makeText(getApplication(), "has app been used before---> ${appUsedBefore}", Toast.LENGTH_LONG).show()
+        //Log.i(TAG, "has app been used before---> ${appUsedBefore}")
 
 
         //If app has NEVER been used, then set the alarm once and for all. and set it to used
         if(!appUsedBefore){
-
-
 
             Toast.makeText(getApplication(), "virgin app. setting Alarm", Toast.LENGTH_LONG).show()
             Log.i(TAG, "virgin app. setting Alarm")

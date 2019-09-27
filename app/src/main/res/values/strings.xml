@@ -9,6 +9,7 @@
     <string name="run">Run</string>
 
     <string name="steps_today">%$d1 steps today</string>
+    <string name="steps_today_no_number">steps\n today</string>
     <string name="steps">%$d1 steps</string>
 
     <string name="kcal">%$d1 kcal</string>
@@ -18,20 +19,20 @@
     <string name="distance_covered">%$d1 km covered</string>
 
 
-    <string name="weather_today">%$s1 weather today %$s2</string>
+    <string name="weather_today">%$s1 weather today</string>
     <string name="temperature">%$d1 °C</string>
 
-    <string name="cold_exercise_suggestions">It is cold in %$1s. Here are some exercises we could suggest
-    - %$2s
-    - %$3s
-    - %$4s
-    - %$5s
+    <string name="cold_exercise_suggestions">It is cold in %$1s. Here are some exercises we could suggest \n
+    - %$2s \n
+    - %$3s \n
+    - %$4s \n
+    - %$5s \n
     - %$6s</string>
-    <string name="warm_exercise_suggestions">It is cold in %$1s. Here are some exercises we could suggest
-    - %$2s
-    - %$3s
-    - %$4s
-    - %$5s
+    <string name="warm_exercise_suggestions">It is cold in %$1s. Here are some exercises we could suggest \n
+    - %$2s \n
+    - %$3s \n
+    - %$4s \n
+    - %$5s \n
     - %$6s</string>
     <string name="step_count">Steps Count</string>
 
