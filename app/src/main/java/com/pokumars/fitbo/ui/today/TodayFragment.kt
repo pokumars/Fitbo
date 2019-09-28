@@ -13,6 +13,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
+import androidx.navigation.Navigation
 import com.pokumars.fitbo.R
 import kotlinx.android.synthetic.main.fragment_today.*
 
@@ -61,6 +63,8 @@ class TodayFragment : Fragment(),SensorEventListener {
 
         todayViewModel =
             ViewModelProviders.of(this).get(TodayViewModel::class.java)
+
+
         val root = inflater.inflate(R.layout.fragment_today, container, false)
         val textView: TextView = root.findViewById(R.id.text_today)
         todayViewModel.text.observe(this, Observer {
@@ -76,5 +80,15 @@ class TodayFragment : Fragment(),SensorEventListener {
         todayViewModel.setFirstTime()//turn thison so alarm is never set again
         todayViewModel.setBootReceiverEnabled()//turn this on so bootreceiver will do its part and set new alarm after reboot of phone
         super.onActivityCreated(savedInstanceState)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        startRunBtn.setOnClickListener {view ->
+            view.findNavController().navigate(R.id.action_navigation_home_to_runFragment)
+
+        }
+
+        super.onViewCreated(view, savedInstanceState)
+
     }
 }
