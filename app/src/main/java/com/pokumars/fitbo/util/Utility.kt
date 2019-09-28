@@ -1,13 +1,13 @@
-package com.pokumars.fitbo
+package com.pokumars.fitbo.util
 
 import android.app.AlarmManager
-import android.app.Application
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import com.pokumars.fitbo.ui.TAG
 import java.util.*
 
 class BootReceiver: BroadcastReceiver() {

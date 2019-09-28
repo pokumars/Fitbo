@@ -9,7 +9,7 @@
     <string name="run">Run</string>
 
     <string name="steps_today">%$d1 steps today</string>
-    <string name="steps_today_no_number">steps\n today</string>
+    <string name="steps_today_no_number">steps</string>
     <string name="steps">%$d1 steps</string>
 
     <string name="kcal">%$d1 kcal</string>

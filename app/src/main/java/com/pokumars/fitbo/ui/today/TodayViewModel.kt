@@ -9,17 +9,20 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.pokumars.fitbo.*
+import com.pokumars.fitbo.ui.TAG
+import com.pokumars.fitbo.util.BootReceiver
+import com.pokumars.fitbo.util.SharedPreferencesHelper
+import com.pokumars.fitbo.util.StepsCheckAlarmReceiver
 import java.util.*
 
 class TodayViewModel(application: Application) : BaseViewModel(application) {
     private val context = getApplication<Application>().applicationContext
 
-    private var preferencesHelper = SharedPreferencesHelper(getApplication())
+    private var preferencesHelper =
+        SharedPreferencesHelper(getApplication())
 
     var alarmManager: AlarmManager? = null
     private lateinit var alarmPendingIntent: PendingIntent

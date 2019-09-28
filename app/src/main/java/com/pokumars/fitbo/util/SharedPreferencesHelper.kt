@@ -1,4 +1,4 @@
-package com.pokumars.fitbo
+package com.pokumars.fitbo.util
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -19,14 +19,17 @@ class SharedPreferencesHelper {
         @Volatile private var instance: SharedPreferencesHelper? = null
         private val LOCK = Any()
 
-        operator fun invoke(context: Context): SharedPreferencesHelper = instance ?: synchronized(
-            LOCK){
-            instance ?: buildHelper(context).also{
+        operator fun invoke(context: Context): SharedPreferencesHelper = instance
+            ?: synchronized(
+                LOCK
+            ){
+            instance
+                ?: buildHelper(context).also{
                 instance = it
             }
         }
 
-        private fun buildHelper(context: Context):SharedPreferencesHelper {
+        private fun buildHelper(context: Context): SharedPreferencesHelper {
             prefs = PreferenceManager.getDefaultSharedPreferences(context)
             return SharedPreferencesHelper()
         }
@@ -40,7 +43,8 @@ class SharedPreferencesHelper {
         }
     }
     //get Steps
-    fun getUniversalStepCount() = prefs?.getInt(UNIVERSAL_STEP_C0UNT, 0)
+    fun getUniversalStepCount() = prefs?.getInt(
+        UNIVERSAL_STEP_C0UNT, 0)
 
     //Set first use
     fun setAppFirstUse(){
@@ -51,5 +55,6 @@ class SharedPreferencesHelper {
         }
     }
 
-    fun getAppFirstUse()= prefs?.getBoolean(APP_USED_BEFORE, false)
+    fun getAppFirstUse()= prefs?.getBoolean(
+        APP_USED_BEFORE, false)
 }

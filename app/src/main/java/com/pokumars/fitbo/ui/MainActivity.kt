@@ -1,8 +1,5 @@
-package com.pokumars.fitbo
+package com.pokumars.fitbo.ui
 
-import android.app.Activity
-import android.content.ComponentName
-import android.content.pm.PackageManager
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -10,14 +7,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import android.app.PendingIntent
-import android.app.AlarmManager
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
-import android.util.Log
-import android.widget.Toast
-import java.util.*
+import com.pokumars.fitbo.R
+
 const val TAG = "FITBOAPP"
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +25,9 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_suggestion, R.id.navigation_history
+                R.id.navigation_home,
+                R.id.navigation_suggestion,
+                R.id.navigation_history
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
