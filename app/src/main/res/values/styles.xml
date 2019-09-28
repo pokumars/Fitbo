@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="exerciseButtons">
+        <item name="android:textColor">#fff</item>
+        <item name="android:layout_width">160dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginLeft">24dp</item>
+        <item name="android:layout_marginRight">24dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+       <item name="android:backgroundTint">#b61827</item>
+        <item name="android:buttonCornerRadius">10dp</item>
+    </style>
+
 </resources>
