@@ -12,7 +12,7 @@ import android.view.ViewGroup
  */
 class RunFragment : Fragment() {
 
-    
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
