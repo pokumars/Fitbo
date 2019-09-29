@@ -32,7 +32,7 @@ class SuggestionFragment : Fragment() {
         GlobalScope.launch(Dispatchers.Main){
             val weatherResponse = apiService.getCurrentWeather("Vantaa").await()
             Log.d("MSG---","$weatherResponse")
-            text_suggestion.text = "${weatherResponse.current.temperature}°C"
+            text_suggestion.text = "${weatherResponse}°C"
         }
         suggestionViewModel =
             ViewModelProviders.of(this).get(SuggestionViewModel::class.java)

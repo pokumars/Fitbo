@@ -21,7 +21,9 @@ interface WeatherApiService {
     ): Deferred<WeatherResponse>
 
     companion object{
-        operator fun invoke():WeatherApiService{
+        operator fun invoke(
+           // connectivityInterceptor: ConnectivityInterceptor
+        ):WeatherApiService{
             val requestInterceptor = Interceptor {chain ->
                 val url = chain.request()
                     .url()
