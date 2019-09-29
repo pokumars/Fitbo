@@ -90,7 +90,7 @@ class RunFragment : Fragment() {
         runTimer.stop()
 
         runTimer.base = SystemClock.elapsedRealtime() + stopTime
-        Log.i(TAG, "Final time -------------- ${finalTime.toString()}")
+        //Log.i(TAG, "Final time -------------- ${finalTime.toString()}")
     }
 
     fun countTheTime(){

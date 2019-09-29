@@ -12,9 +12,11 @@ import androidx.lifecycle.ViewModelProviders
 import com.pokumars.fitbo.R
 import com.pokumars.fitbo.data.WeatherApiService
 import kotlinx.android.synthetic.main.fragment_suggestion.*
+import kotlinx.android.synthetic.main.fragment_suggestion.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 
 class SuggestionFragment : Fragment() {
@@ -35,7 +37,7 @@ class SuggestionFragment : Fragment() {
         suggestionViewModel =
             ViewModelProviders.of(this).get(SuggestionViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_suggestion, container, false)
-        //root.text_suggestion.text =apiService.getCurrentWeather("London").toString()
+
         val textView: TextView = root.findViewById(R.id.text_suggestion)
         suggestionViewModel.text.observe(this, Observer {
             textView.text = it
