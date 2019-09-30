@@ -14,6 +14,7 @@ class SharedPreferencesHelper {
     companion object{
         private const val APP_USED_BEFORE ="app used before"
         private const val UNIVERSAL_STEP_C0UNT= "universal step count"
+        private const val USER_WEIGHT= "user weight"
         private var prefs: SharedPreferences? = null
 
         @Volatile private var instance: SharedPreferencesHelper? = null
@@ -52,4 +53,13 @@ class SharedPreferencesHelper {
     }
 
     fun getAppFirstUse()= prefs?.getBoolean(APP_USED_BEFORE, false)
+
+    //set Users Weight
+    fun setWeight(weight: Double){
+        prefs?.edit(commit = true){
+            putFloat(USER_WEIGHT, 70.0f)
+        }
+    }
+
+    fun getWeight() = prefs?.getFloat(USER_WEIGHT, 70.0f)
 }
