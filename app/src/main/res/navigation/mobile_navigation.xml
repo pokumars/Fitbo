@@ -28,7 +28,7 @@
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/runFragment"
-        android:name="com.pokumars.fitbo.RunFragment"
+        android:name="com.pokumars.fitbo.ui.run.RunFragment"
         android:label="fragment_run"
         tools:layout="@layout/fragment_run" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.pokumars.fitbo
+package com.pokumars.fitbo.ui.run
 
 
 import android.os.Bundle
@@ -8,13 +8,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.lifecycle.ViewModelProviders
+import com.pokumars.fitbo.R
+import com.pokumars.fitbo.TAG
 import kotlinx.android.synthetic.main.fragment_run.*
 
 /**
  * A simple [Fragment] subclass.
  */
 class RunFragment : Fragment() {
+    private lateinit var runViewModel: RunViewModel
+
 
     var timerIsOn= false
     var stopTime: Long = 0
@@ -24,6 +28,10 @@ class RunFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        runViewModel =
+            ViewModelProviders.of(this).get(RunViewModel::class.java)
+        runViewModel.setWeight()
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_run, container, false)
@@ -35,17 +43,43 @@ class RunFragment : Fragment() {
         pauseRunBtn.setOnClickListener { pauseTimer() }
         resumeRunBtn.setOnClickListener { startTimer() }
 
+        button1.setOnClickListener {
+            runViewModel.stepsRun= runViewModel.stepsRun +100
+            Log.i(TAG, "${runViewModel.stepsRun} steps")
+            Log.i(TAG, "${runViewModel.distanceTravelled} km")
+            Log.i(TAG, "${runViewModel.calories} calories")
+
+            displayValues()
+        }
+
+        runDistanceTextView.text = resources.getString(R.string.km, String.format("%.2f",runViewModel.distanceTravelled))
+        runCaloriesTextView.text = resources.getString(R.string.kcal_burnt, String.format("%.2f",runViewModel.calories))
+        testStepsTV.text= resources.getString(R.string.steps, String.format("%.2f",runViewModel.stepsRun))
+
+
         if(!timerIsOn){
-            stopRunBtn.visibility =View.GONE
-            pauseRunBtn.visibility =View.GONE
-            resumeRunBtn.visibility =View.GONE
+            hideButtonsOnCreate()
         }
         super.onViewCreated(view, savedInstanceState)
     }
 
+    fun displayValues(){
+        updateValues()
+        runDistanceTextView.setText(resources.getString(R.string.km, String.format("%.2f",runViewModel.distanceTravelled)))
+        runCaloriesTextView.setText(resources.getString(R.string.kcal_burnt, String.format("%.2f",runViewModel.calories)))
+        testStepsTV.setText(resources.getString(R.string.steps, String.format("%.2f",runViewModel.stepsRun)))
 
-    fun hideButtonsOnCreate(){
-        startRunBtn.visibility = View.GONE
+    }
+
+    fun updateValues(){
+        runViewModel.stepsRun +=100
+        runViewModel.distanceInMetres = runViewModel.stride * runViewModel.stepsRun
+        runViewModel.distanceTravelled = runViewModel.distanceInMetres/1000
+        runViewModel.calories =  (runViewModel.distanceTravelled * runViewModel.bodyMass!!)
+    }
+
+
+    fun hideButtonsOnCreate(){//If timer is not on, hide the other buttons
         stopRunBtn.visibility =View.GONE
         pauseRunBtn.visibility =View.GONE
         resumeRunBtn.visibility =View.GONE
@@ -60,8 +94,8 @@ class RunFragment : Fragment() {
         pauseRunBtn.visibility =View.VISIBLE//only pause is visible
     }
 
-    fun stopTimer(){
-        timerIsOn = true
+    fun stopTimer(){//and then show the results of the run
+        timerIsOn = false
         stopTime =runTimer.base - SystemClock.elapsedRealtime()
 
         resetTimer()
@@ -69,7 +103,7 @@ class RunFragment : Fragment() {
         pauseRunBtn.visibility =View.GONE
         resumeRunBtn.visibility = View.GONE
         stopRunBtn.visibility = View.GONE
-        startRunBtn.visibility = View.VISIBLE //show the results of the run
+        startRunBtn.visibility = View.VISIBLE //show only start Run after
 
 
         //Todo take user to result fragment
