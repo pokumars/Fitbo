@@ -9,9 +9,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.pokumars.fitbo.R
 
-const val TAG = "FITBOAPP"
+const val TAG ="FITBOAPP"
 class MainActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
