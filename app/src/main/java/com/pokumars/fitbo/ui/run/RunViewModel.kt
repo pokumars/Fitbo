@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pokumars.fitbo.BaseViewModel
-import com.pokumars.fitbo.SharedPreferencesHelper
+import com.pokumars.fitbo.util.SharedPreferencesHelper
 
 class RunViewModel(application: Application) : BaseViewModel(application) {
     private var preferencesHelper = SharedPreferencesHelper(getApplication())
@@ -20,9 +20,7 @@ class RunViewModel(application: Application) : BaseViewModel(application) {
 
 
     fun setWeight(){
-        preferencesHelper.setWeight(80.0)
+        preferencesHelper.setWeight(80f)
     }
-
-
 
 }

@@ -29,11 +29,11 @@ class SuggestionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val apiService = WeatherApiService()
-        GlobalScope.launch(Dispatchers.Main){
+        /*GlobalScope.launch(Dispatchers.Main){
             val weatherResponse = apiService.getCurrentWeather("Vantaa").await()
             Log.d("MSG---","$weatherResponse")
             text_suggestion.text = "${weatherResponse}°C"
-        }
+        }*/
         suggestionViewModel =
             ViewModelProviders.of(this).get(SuggestionViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_suggestion, container, false)
