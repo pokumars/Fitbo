@@ -10,13 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pokumars.fitbo.R
+import com.pokumars.fitbo.data.ConnectivityInterceptorImpl
 import com.pokumars.fitbo.data.WeatherApiService
+import com.pokumars.fitbo.data.WeatherNetworkDataSourceImpl
 import kotlinx.android.synthetic.main.fragment_suggestion.*
-import kotlinx.android.synthetic.main.fragment_suggestion.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.lang.Exception
+
 
 
 class SuggestionFragment : Fragment() {
@@ -28,14 +29,23 @@ class SuggestionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val apiService = WeatherApiService()
-        /*GlobalScope.launch(Dispatchers.Main){
-            val weatherResponse = apiService.getCurrentWeather("Vantaa").await()
-            Log.d("MSG---","$weatherResponse")
-            text_suggestion.text = "${weatherResponse}°C"
-        }*/
+
+
         suggestionViewModel =
             ViewModelProviders.of(this).get(SuggestionViewModel::class.java)
+        val apiService = WeatherApiService(ConnectivityInterceptorImpl(this.context!!))
+        var weatherNetworkDataSource = WeatherNetworkDataSourceImpl(apiService)
+        weatherNetworkDataSource.downloadedCurrentWeather.observe(this, Observer {
+            text_suggestion.text = it.toString()
+        })
+        GlobalScope.launch(Dispatchers.Main){
+            /*val weatherResponse = apiService.getCurrentWeather("Vantaa").await()
+            Log.d("MSG---","$weatherResponse")
+            text_suggestion.text = "${weatherResponse}°C"*/
+            weatherNetworkDataSource.fetchCurrentWeather("vantaa","en")
+
+        }
+
         val root = inflater.inflate(R.layout.fragment_suggestion, container, false)
 
         val textView: TextView = root.findViewById(R.id.text_suggestion)

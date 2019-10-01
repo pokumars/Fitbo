@@ -22,7 +22,7 @@ interface WeatherApiService {
 
     companion object{
         operator fun invoke(
-           // connectivityInterceptor: ConnectivityInterceptor
+           connectivityInterceptor: ConnectivityInterceptor
         ):WeatherApiService{
             val requestInterceptor = Interceptor {chain ->
                 val url = chain.request()
@@ -39,6 +39,7 @@ interface WeatherApiService {
             }
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(requestInterceptor)
+                .addInterceptor(connectivityInterceptor)
                 .build()
             return Retrofit.Builder()
                 .client(okHttpClient)
