@@ -10,13 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.pokumars.fitbo.R
+import com.pokumars.fitbo.ui.TAG
+
 import kotlinx.android.synthetic.main.fragment_run.*
 
 /**
  * A simple [Fragment] subclass.
  */
-
-const val TAG = "FITBOAPP"
 class RunFragment : Fragment() {
     private lateinit var runViewModel: RunViewModel
 
@@ -53,9 +53,9 @@ class RunFragment : Fragment() {
             displayValues()
         }
 
-        /*runDistanceTextView.text = resources.getString(R.string.km, String.format("%.2f",runViewModel.distanceTravelled))
+        runDistanceTextView.text = resources.getString(R.string.km, String.format("%.2f",runViewModel.distanceTravelled))
         runCaloriesTextView.text = resources.getString(R.string.kcal_burnt, String.format("%.2f",runViewModel.calories))
-        testStepsTV.text= resources.getString(R.string.steps, String.format("%.2f",runViewModel.stepsRun))*/
+        testStepsTV.text= resources.getString(R.string.steps, String.format("%.2f",runViewModel.stepsRun))
 
 
         if(!timerIsOn){
@@ -66,9 +66,9 @@ class RunFragment : Fragment() {
 
     fun displayValues(){
         updateValues()
-        /*runDistanceTextView.setText(resources.getString(R.string.km, String.format("%.2f",runViewModel.distanceTravelled)))
+        runDistanceTextView.setText(resources.getString(R.string.km, String.format("%.2f",runViewModel.distanceTravelled)))
         runCaloriesTextView.setText(resources.getString(R.string.kcal_burnt, String.format("%.2f",runViewModel.calories)))
-        testStepsTV.setText(resources.getString(R.string.steps, String.format("%.2f",runViewModel.stepsRun)))*/
+        testStepsTV.setText(resources.getString(R.string.steps, String.format("%.2f",runViewModel.stepsRun)))
 
     }
 
@@ -125,7 +125,7 @@ class RunFragment : Fragment() {
         runTimer.stop()
 
         runTimer.base = SystemClock.elapsedRealtime() + stopTime
-        //Log.i(TAG, "Final time -------------- ${finalTime.toString()}")
+        Log.i(TAG, "Final time -------------- ${finalTime.toString()}")
     }
 
     fun countTheTime(){
