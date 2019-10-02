@@ -18,8 +18,8 @@ interface LocationDao{
     @Insert(onConflict=OnConflictStrategy.REPLACE)
     fun upsert(location:Location)
 
-    @Query("select * from location where id =$LOCATION_ID")
+    @Query("select * from currentLocationDao where id =$LOCATION_ID")
     fun getLocation():LiveData<Location>
-    @Query("select * from location where id =$LOCATION_ID")
+    @Query("select * from currentLocationDao where id =$LOCATION_ID")
     fun getLocationNonLive():Location?
 }

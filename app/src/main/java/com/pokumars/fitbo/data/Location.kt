@@ -9,7 +9,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 
 const val LOCATION_ID =0
-@Entity(tableName = "location")
+@Entity(tableName = "currentLocationDao")
 data class Location(
     @SerializedName("country")
     val country: String,

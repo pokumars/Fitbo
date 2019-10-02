@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase
 
 abstract class WeatherDatabase:RoomDatabase() {
     abstract fun currentWeatherDao():CurrentWeatherDao
-    abstract fun location():LocationDao
+    abstract fun currentLocationDao():LocationDao
 
     companion object{
         @Volatile private var instance: WeatherDatabase? =null
