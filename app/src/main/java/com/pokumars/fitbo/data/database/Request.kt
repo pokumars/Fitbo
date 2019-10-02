@@ -1,4 +1,4 @@
-package com.pokumars.fitbo.data
+package com.pokumars.fitbo.data.database
 
 
 import com.google.gson.annotations.SerializedName

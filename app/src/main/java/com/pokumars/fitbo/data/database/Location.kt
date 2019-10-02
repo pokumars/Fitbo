@@ -1,12 +1,9 @@
-package com.pokumars.fitbo.data
+package com.pokumars.fitbo.data.database
 
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import java.time.Instant
-import java.time.ZoneId
-import java.time.ZonedDateTime
 
 const val LOCATION_ID =0
 @Entity(tableName = "currentLocationDao")

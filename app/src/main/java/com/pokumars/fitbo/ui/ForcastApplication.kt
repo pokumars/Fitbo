@@ -3,6 +3,8 @@ package com.pokumars.fitbo.ui
 import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.pokumars.fitbo.data.*
+import com.pokumars.fitbo.data.database.WeatherDatabase
+import com.pokumars.fitbo.data.network.*
 import com.pokumars.fitbo.ui.suggestion.SuggestionViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -18,12 +20,25 @@ class ForecastApplication : Application(), KodeinAware {
 
         bind() from singleton { WeatherDatabase(instance()) }
         bind() from singleton { instance<WeatherDatabase>().currentWeatherDao() }
-        bind<ConnectivityInterceptor>()with singleton { ConnectivityInterceptorImpl(instance()) }
+        bind<ConnectivityInterceptor>()with singleton {
+            ConnectivityInterceptorImpl(
+                instance()
+            )
+        }
         bind() from singleton { WeatherApiService(instance()) }
         //bind() from singleton { instance<WeatherDatabase>().currentLocationDao() }
-        bind<WeatherNetworkDataSource>()with singleton { WeatherNetworkDataSourceImpl(instance()) }
+        bind<WeatherNetworkDataSource>()with singleton {
+            WeatherNetworkDataSourceImpl(
+                instance()
+            )
+        }
         bind()from provider { SuggestionViewModelFactory(instance())}
-        bind<ForcastRepository>() with singleton { ForcastRepositoryImpl(instance(), instance()) }
+        bind<ForcastRepository>() with singleton {
+            ForcastRepositoryImpl(
+                instance(),
+                instance()
+            )
+        }
     }
     override fun onCreate() {
         super.onCreate()

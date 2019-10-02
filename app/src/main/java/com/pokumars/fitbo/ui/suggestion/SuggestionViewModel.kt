@@ -3,7 +3,7 @@ package com.pokumars.fitbo.ui.suggestion
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.pokumars.fitbo.data.ForcastRepository
+import com.pokumars.fitbo.data.network.ForcastRepository
 import kotlinx.coroutines.*
 
 class SuggestionViewModel(private val forecastRepository: ForcastRepository) : ViewModel() {

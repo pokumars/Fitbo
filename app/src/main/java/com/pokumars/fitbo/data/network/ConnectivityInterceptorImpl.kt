@@ -1,13 +1,15 @@
-package com.pokumars.fitbo.data
+package com.pokumars.fitbo.data.network
 
 import android.content.Context
 import android.net.ConnectivityManager
+import com.pokumars.fitbo.data.network.ConnectivityInterceptor
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
 
 
-class ConnectivityInterceptorImpl(context:Context) : ConnectivityInterceptor {
+class ConnectivityInterceptorImpl(context:Context) :
+    ConnectivityInterceptor {
 
  private val appContext = context.applicationContext
     override fun intercept(chain: Interceptor.Chain): Response {

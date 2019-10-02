@@ -1,5 +1,5 @@
 
-package com.pokumars.fitbo.data
+package com.pokumars.fitbo.data.network
 
 import okhttp3.Interceptor
 

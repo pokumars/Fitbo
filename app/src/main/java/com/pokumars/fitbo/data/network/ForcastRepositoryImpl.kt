@@ -1,6 +1,9 @@
-package com.pokumars.fitbo.data
+package com.pokumars.fitbo.data.network
 
 import androidx.lifecycle.LiveData
+import com.pokumars.fitbo.data.database.CurrentWeather
+import com.pokumars.fitbo.data.database.CurrentWeatherDao
+import com.pokumars.fitbo.data.database.WeatherResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import  kotlinx.coroutines.launch
@@ -24,7 +27,7 @@ class ForcastRepositoryImpl (
             else currentWeatherDao.getWeather()
         }
     }
-    private  fun persistFetachedCurrentWeather(fetachedWeather:WeatherResponse){
+    private  fun persistFetachedCurrentWeather(fetachedWeather: WeatherResponse){
         GlobalScope.launch (Dispatchers.IO){
             currentWeatherDao.upsert(fetachedWeather.current)
         }

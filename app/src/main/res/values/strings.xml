@@ -42,6 +42,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading">loading..</string>
+    <string name="weather_icon">Weather Icon</string>
+    <string name="degree">°C</string>
 
 
 </resources>
