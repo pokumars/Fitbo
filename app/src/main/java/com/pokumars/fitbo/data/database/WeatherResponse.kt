@@ -9,7 +9,7 @@ import com.pokumars.fitbo.data.database.Request
 data class WeatherResponse(
     @SerializedName("current")
     val current: CurrentWeather,
-    @SerializedName("currentLocationDao")
+    @SerializedName("location")
     val location: Location,
     @SerializedName("request")
     val request: Request

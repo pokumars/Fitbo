@@ -14,13 +14,3 @@ interface CurrentWeatherDao {
     @Query ("select * from current_weather where id =$CURRENT_WEATHER_ID")
     fun getWeather():LiveData<CurrentWeather>
 }
-@Dao
-interface LocationDao{
-    @Insert(onConflict=OnConflictStrategy.REPLACE)
-    fun upsert(location: Location)
-
-    @Query("select * from currentLocationDao where id =$LOCATION_ID")
-    fun getLocation():LiveData<Location>
-    @Query("select * from currentLocationDao where id =$LOCATION_ID")
-    fun getLocationNonLive(): Location?
-}

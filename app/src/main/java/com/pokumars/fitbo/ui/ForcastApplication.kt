@@ -20,6 +20,7 @@ class ForecastApplication : Application(), KodeinAware {
 
         bind() from singleton { WeatherDatabase(instance()) }
         bind() from singleton { instance<WeatherDatabase>().currentWeatherDao() }
+        bind() from singleton { instance<WeatherDatabase>().currentLocationDao() }
         bind<ConnectivityInterceptor>()with singleton {
             ConnectivityInterceptorImpl(
                 instance()
@@ -33,8 +34,11 @@ class ForecastApplication : Application(), KodeinAware {
             )
         }
         bind()from provider { SuggestionViewModelFactory(instance())}
-        bind<ForcastRepository>() with singleton {
-            ForcastRepositoryImpl(
+        bind<LocationProvider>() with singleton { LocationProviderImpl() }
+        bind<ForecastRepository>() with singleton {
+            ForecastRepositoryImpl(
+                instance(),
+                instance(),
                 instance(),
                 instance()
             )

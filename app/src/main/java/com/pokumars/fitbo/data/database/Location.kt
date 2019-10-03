@@ -4,9 +4,12 @@ package com.pokumars.fitbo.data.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
-const val LOCATION_ID =0
-@Entity(tableName = "currentLocationDao")
+const val LOCATION_ID = 1
+@Entity(tableName = "current_location")
 data class Location(
     @SerializedName("country")
     val country: String,
@@ -15,7 +18,7 @@ data class Location(
     @SerializedName("localtime")
     val localtime: String,
     @SerializedName("localtime_epoch")
-    val localtimeEpoch: Long,
+    val localtimeEpoch: Int,
     @SerializedName("lon")
     val lon: String,
     @SerializedName("name")
@@ -29,9 +32,11 @@ data class Location(
 ){
     @PrimaryKey(autoGenerate = false)
     var id:Int = LOCATION_ID
-    /*get() {
-        val instant = Instant.ofEpochSecond(localtimeEpoch)
+
+    val zonedDateTime:ZonedDateTime
+    get() {
+        val instant = Instant.ofEpochSecond(localtimeEpoch.toLong())
         val zoneId = ZoneId.of(timezoneId)
-        return ZonedDateTime.ofInstant(instant,zoneId,localtimeEpoch)
-    }*/
+        return ZonedDateTime.ofInstant(instant,zoneId)
+    }
 }
