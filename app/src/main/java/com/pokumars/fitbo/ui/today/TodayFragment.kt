@@ -63,7 +63,6 @@ class TodayFragment : Fragment(),SensorEventListener {
         todayViewModel =
             ViewModelProviders.of(this).get(TodayViewModel::class.java)
 
-
         val root = inflater.inflate(R.layout.fragment_today, container, false)
         val textView: TextView = root.findViewById(R.id.text_today)
         todayViewModel.text.observe(this, Observer {
@@ -82,9 +81,9 @@ class TodayFragment : Fragment(),SensorEventListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        startRunFragmentBtn.setOnClickListener { view ->
-            view.findNavController().navigate(R.id.action_navigation_home_to_runFragment)
 
+        startRunFragmentBtn.setOnClickListener { view:View ->
+            view.findNavController().navigate(TodayFragmentDirections.actionNavigationHomeToRunFragment())
         }
 
         super.onViewCreated(view, savedInstanceState)

@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.pokumars.fitbo.R
 import com.pokumars.fitbo.ui.TAG
 
@@ -19,6 +20,10 @@ import kotlinx.android.synthetic.main.fragment_run.*
  */
 class RunFragment : Fragment() {
     private lateinit var runViewModel: RunViewModel
+
+    /*var calories= ""
+    var distanceTravelled= ""
+    var stepsRun= ""*/
 
 
     var timerIsOn= false
@@ -34,18 +39,18 @@ class RunFragment : Fragment() {
             ViewModelProviders.of(this).get(RunViewModel::class.java)
         runViewModel.setWeight()
 
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_run, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         startRunBtn.setOnClickListener { startTimer() }
-        stopRunBtn.setOnClickListener { stopTimer() }
+        stopRunBtn.setOnClickListener { stopExercise() }
         pauseRunBtn.setOnClickListener { pauseTimer() }
         resumeRunBtn.setOnClickListener { startTimer() }
 
         button1.setOnClickListener {
-            runViewModel.stepsRun= runViewModel.stepsRun +100
             Log.i(TAG, "${runViewModel.stepsRun} steps")
             Log.i(TAG, "${runViewModel.distanceTravelled} km")
             Log.i(TAG, "${runViewModel.calories} calories")
@@ -55,13 +60,24 @@ class RunFragment : Fragment() {
 
         runDistanceTextView.text = resources.getString(R.string.km, String.format("%.2f",runViewModel.distanceTravelled))
         runCaloriesTextView.text = resources.getString(R.string.kcal_burnt, String.format("%.2f",runViewModel.calories))
-        testStepsTV.text= resources.getString(R.string.steps, String.format("%.2f",runViewModel.stepsRun))
+        testStepsTV.text= resources.getString(R.string.steps, String.format("%.2f", runViewModel.stepsRun))
 
 
         if(!timerIsOn){
             hideButtonsOnCreate()
         }
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    fun stopExercise(){
+        val sCalories= String.format("%.2f", runViewModel.calories)
+        val sDistanceTravelled= String.format("%.2f",runViewModel.distanceTravelled)
+        val sStepsRun= String.format("%.2f",runViewModel.stepsRun)
+
+        stopTimer()
+        this.findNavController().navigate(RunFragmentDirections
+            .actionRunFragmentToEndExerciseFragment(sCalories, sDistanceTravelled, sStepsRun))
+        setExerciseValuesToZero()
     }
 
     fun displayValues(){
@@ -110,6 +126,11 @@ class RunFragment : Fragment() {
         //Todo take user to result fragment
     }
 
+    fun setExerciseValuesToZero(){
+        //If we have to manually set the exercise values to 0. For now the reset onCreate so ne need yet
+    }
+
+
     fun pauseTimer(){
         stopTime =runTimer.base - SystemClock.elapsedRealtime()
         runTimer.stop()
@@ -117,8 +138,8 @@ class RunFragment : Fragment() {
         pauseRunBtn.visibility =View.GONE//resume and stop are visible
         resumeRunBtn.visibility = View.VISIBLE
         stopRunBtn.visibility = View.VISIBLE
-
     }
+
     fun resetTimer(){
         stopTime =0
         finalTime = stopTime
@@ -132,6 +153,4 @@ class RunFragment : Fragment() {
         runTimer.base = SystemClock.elapsedRealtime() + stopTime
         runTimer.start()
     }
-
-
 }

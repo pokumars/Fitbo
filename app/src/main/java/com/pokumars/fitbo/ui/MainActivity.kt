@@ -1,13 +1,16 @@
 package com.pokumars.fitbo.ui
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.pokumars.fitbo.R
+import com.pokumars.fitbo.util.StepsForegroundService
 
 const val TAG ="FITBOAPP"
 class MainActivity : AppCompatActivity() {
@@ -31,6 +34,26 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        startStepCounterForegroundService()
+    }
+
+    fun startStepCounterForegroundService(){
+        //var input = edit_text_input.text.toString()
+        //serviceIntent.putExtra("inputExtra", input)
+
+        val serviceIntent = Intent(this, StepsForegroundService::class.java)
+        ContextCompat.startForegroundService(this, serviceIntent);
+    }
+
+    fun stopService(){
+        val serviceIntent = Intent(this, StepsForegroundService::class.java)
+        stopService(serviceIntent)
+
+    }
+
+    fun goToExerciseFragment(){
+        //when notification is clicked on and exercise is running, take us to the right Fragment
     }
 
 }
