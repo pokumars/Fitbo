@@ -1,6 +1,9 @@
 package com.pokumars.fitbo.ui
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.pokumars.fitbo.data.*
 import com.pokumars.fitbo.data.database.WeatherDatabase
@@ -14,6 +17,8 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 
+val STEPS_CHANNEL_ID ="stepsServiceChannel"
+val TAG = "FITBOAPP"
 class ForecastApplication : Application(), KodeinAware {
     override val kodein = Kodein.lazy {
         import(androidXModule(this@ForecastApplication))
@@ -44,9 +49,22 @@ class ForecastApplication : Application(), KodeinAware {
             )
         }
     }
+
+    fun createStepsNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            var serviceChannel = NotificationChannel(
+                STEPS_CHANNEL_ID,
+                "Steps Service Channel",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+
+            var manager = getSystemService(NotificationManager::class.java)
+            manager.createNotificationChannel(serviceChannel)
+        }
+    }
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
-
+        createStepsNotificationChannel()
     }
 }

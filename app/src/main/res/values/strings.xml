@@ -46,5 +46,8 @@
     <string name="weather_icon">Weather Icon</string>
     <string name="degree">°C</string>
 
+    <!--Exercise results -->
+    <string name="well_done_champ">Well done Champ!\nThese are your stats</string>
+
 
 </resources>

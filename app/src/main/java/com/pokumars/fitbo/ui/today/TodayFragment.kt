@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.pokumars.fitbo.R
+import com.pokumars.fitbo.util.SharedPreferencesHelper
 import kotlinx.android.synthetic.main.fragment_today.*
 
 class TodayFragment : Fragment(),SensorEventListener {
@@ -24,15 +25,20 @@ class TodayFragment : Fragment(),SensorEventListener {
     private var running = false
 
 
+
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 
     }
 
     override fun onSensorChanged(event: SensorEvent) {
+
         val stepsValue =event.values[0]
        if(event.sensor == steps){
+           var todayStepsValue = String.format("%.0f",stepsValue- todayViewModel.midnightSteps!!)
 
-           text_today.text = "Steps\n\n $stepsValue"
+           text_today.text = "Steps\n\n ${todayStepsValue}"
+           stepsNumberTextView.text = "$todayStepsValue"
+           //text_today.setText((stepsValue- todayViewModel.midnightSteps!!).toString())
        }
     }
 
@@ -63,7 +69,6 @@ class TodayFragment : Fragment(),SensorEventListener {
         todayViewModel =
             ViewModelProviders.of(this).get(TodayViewModel::class.java)
 
-
         val root = inflater.inflate(R.layout.fragment_today, container, false)
         val textView: TextView = root.findViewById(R.id.text_today)
         todayViewModel.text.observe(this, Observer {
@@ -82,9 +87,9 @@ class TodayFragment : Fragment(),SensorEventListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        startRunFragmentBtn.setOnClickListener { view ->
-            view.findNavController().navigate(R.id.action_navigation_home_to_runFragment)
 
+        startRunFragmentBtn.setOnClickListener { view:View ->
+            view.findNavController().navigate(TodayFragmentDirections.actionNavigationHomeToRunFragment())
         }
 
         super.onViewCreated(view, savedInstanceState)
