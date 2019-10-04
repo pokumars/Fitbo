@@ -30,5 +30,24 @@
         android:id="@+id/runFragment"
         android:name="com.pokumars.fitbo.ui.run.RunFragment"
         android:label="fragment_run"
-        tools:layout="@layout/fragment_run" />
+        tools:layout="@layout/fragment_run" >
+        <action
+            android:id="@+id/action_runFragment_to_endExerciseFragment"
+            app:destination="@id/endExerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/endExerciseFragment"
+        android:name="com.pokumars.fitbo.ui.endexercise.EndExerciseFragment"
+        android:label="fragment_end_exercise"
+        tools:layout="@layout/fragment_end_exercise" >
+        <argument
+            android:name="numSteps"
+            app:argType="string" />
+        <argument
+            android:name="numKilometres"
+            app:argType="string" />
+        <argument
+            android:name="numKCal"
+            app:argType="string" />
+    </fragment>
 </navigation>
