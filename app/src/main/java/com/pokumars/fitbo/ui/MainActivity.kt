@@ -13,7 +13,7 @@ import com.pokumars.fitbo.R
 import com.pokumars.fitbo.util.SharedPreferencesHelper
 import com.pokumars.fitbo.util.StepsForegroundService
 
-const val TAG ="FITBOAPP"
+//const val TAG ="FITBOAPP"
 class MainActivity : AppCompatActivity() {
 
 

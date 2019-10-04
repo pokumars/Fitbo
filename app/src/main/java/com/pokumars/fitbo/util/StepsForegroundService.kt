@@ -14,9 +14,12 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.pokumars.fitbo.ui.MainActivity
+import com.pokumars.fitbo.ui.STEPS_CHANNEL_ID
+import com.pokumars.fitbo.ui.TAG
 
+const val FOREGROUND_STEPS = "foreground steps"
 class StepsForegroundService:SensorEventListener, Service() {
-    val FOREGROUND_STEPS = "foreground steps"
+
     private lateinit var sm: SensorManager
     private var stepCounter: Sensor? = null
     var stepCount: Float? = 0f
