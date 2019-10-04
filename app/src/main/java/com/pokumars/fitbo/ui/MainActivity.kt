@@ -10,10 +10,12 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.pokumars.fitbo.R
+import com.pokumars.fitbo.util.SharedPreferencesHelper
 import com.pokumars.fitbo.util.StepsForegroundService
 
 const val TAG ="FITBOAPP"
 class MainActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +36,8 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
         startStepCounterForegroundService()
+
     }
 
     fun startStepCounterForegroundService(){
@@ -46,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         ContextCompat.startForegroundService(this, serviceIntent);
     }
 
-    fun stopService(){
+    fun stopService(){// if we need to stop the service
         val serviceIntent = Intent(this, StepsForegroundService::class.java)
         stopService(serviceIntent)
 

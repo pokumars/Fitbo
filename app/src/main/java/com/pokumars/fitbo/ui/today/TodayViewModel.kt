@@ -27,9 +27,10 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
     var alarmManager: AlarmManager? = null
     private lateinit var alarmPendingIntent: PendingIntent
     private var appUsedBefore: Boolean = false
+    var midnightSteps = preferencesHelper.getMidnighStepCount()
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is Today Fragment"
+        value = (preferencesHelper.getUniversalStepCount()?.minus( preferencesHelper.getMidnighStepCount()!!)).toString()
     }
     val text: LiveData<String> = _text
 
@@ -50,12 +51,21 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
             val calendar : Calendar = Calendar.getInstance().apply {
                 timeInMillis = System.currentTimeMillis()
                 set(Calendar.HOUR_OF_DAY, 0)
+                //TODO dont forget to change hour back to midnight
             }
 
             alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             alarmPendingIntent = Intent(context, StepsCheckAlarmReceiver::class.java).let { intent ->
                 PendingIntent.getBroadcast(context, 0, intent, 0)
             }
+
+            /*var twoMinutes = (120L*1000)
+            alarmManager?.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                twoMinutes,
+                alarmPendingIntent
+            )*/
 
             //TODO What it should do when alarm runs is in the class StepsCheckAlarmReceiver in Utility file
             alarmManager?.setRepeating(
@@ -64,6 +74,8 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
                 AlarmManager.INTERVAL_DAY,
                 alarmPendingIntent
             )
+
+
         }
     }
 

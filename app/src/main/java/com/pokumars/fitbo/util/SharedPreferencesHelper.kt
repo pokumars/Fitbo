@@ -14,6 +14,8 @@ class SharedPreferencesHelper {
     companion object{
         private const val APP_USED_BEFORE ="app used before"
         private const val UNIVERSAL_STEP_C0UNT= "universal step count"
+        private const val MIDNIGHT_STEP_C0UNT= "midnight step count"
+        private const val TODAY_STEP_C0UNT= "today step count"
         private const val USER_WEIGHT= "user weight"
         private var prefs: SharedPreferences? = null
 
@@ -37,15 +39,23 @@ class SharedPreferencesHelper {
 
     }
 
-    //Set steps
-    fun setUniversalStepCount(steps: Int){
+    //Set universal steps
+    fun setUniversalStepCount(steps: Float){
         prefs?.edit(commit = true){
-            putInt(UNIVERSAL_STEP_C0UNT, steps)
+            putFloat(UNIVERSAL_STEP_C0UNT, steps)
         }
     }
-    //get Steps
-    fun getUniversalStepCount() = prefs?.getInt(
-        UNIVERSAL_STEP_C0UNT, 0)
+    //get universal Steps
+    fun getUniversalStepCount() = prefs?.getFloat(UNIVERSAL_STEP_C0UNT, 0f)
+
+    //Set steps at Midnight
+    fun setMidnighStepCount(steps: Float){
+        prefs?.edit(commit = true){
+            putFloat(MIDNIGHT_STEP_C0UNT, steps)
+        }
+    }
+    //get Midnight Steps
+    fun getMidnighStepCount() = prefs?.getFloat(MIDNIGHT_STEP_C0UNT, 0f)
 
     //Set first use
     fun setAppFirstUse(){

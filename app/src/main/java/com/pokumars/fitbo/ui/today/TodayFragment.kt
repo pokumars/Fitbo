@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.pokumars.fitbo.R
+import com.pokumars.fitbo.util.SharedPreferencesHelper
 import kotlinx.android.synthetic.main.fragment_today.*
 
 class TodayFragment : Fragment(),SensorEventListener {
@@ -24,15 +25,20 @@ class TodayFragment : Fragment(),SensorEventListener {
     private var running = false
 
 
+
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 
     }
 
     override fun onSensorChanged(event: SensorEvent) {
+
         val stepsValue =event.values[0]
        if(event.sensor == steps){
+           var todayStepsValue = String.format("%.0f",stepsValue- todayViewModel.midnightSteps!!)
 
-           text_today.text = "Steps\n\n $stepsValue"
+           text_today.text = "Steps\n\n ${todayStepsValue}"
+           stepsNumberTextView.text = "$todayStepsValue"
+           //text_today.setText((stepsValue- todayViewModel.midnightSteps!!).toString())
        }
     }
 

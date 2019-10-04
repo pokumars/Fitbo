@@ -48,11 +48,19 @@ class BootReceiver: BroadcastReceiver() {
 }
 
 class StepsCheckAlarmReceiver: BroadcastReceiver() {
+
     override fun onReceive(context: Context?, intent: Intent?) {
         val currentTime = System.currentTimeMillis()
+        var preferencesHelper = SharedPreferencesHelper(context!!)
+        var currentSteps = preferencesHelper.getUniversalStepCount()
+
+        preferencesHelper.setMidnighStepCount(currentSteps ?: 0f)
+
+
         //E.g
-        //Toast.makeText(context, "setting alarm in inStepsCheckAlarmReceiver", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "setting alarm in inStepsCheckAlarmReceiver", Toast.LENGTH_LONG).show();
         Log.i(TAG, "setting alarm in inStepsCheckAlarmReceiver ${Date().toString()}")
+        Log.i(TAG, "midnight step count ------------- ${preferencesHelper.getMidnighStepCount()}")
         println("FITBO Alarm, Alarm, inReceiver println")
 
         // when received what should it do

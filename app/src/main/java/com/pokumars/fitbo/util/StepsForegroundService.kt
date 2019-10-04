@@ -20,8 +20,8 @@ class StepsForegroundService:SensorEventListener, Service() {
     private lateinit var sm: SensorManager
     private var stepCounter: Sensor? = null
     var stepCount: Float? = 0f
-
-
+    private var preferencesHelper =
+        SharedPreferencesHelper(this)
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -29,20 +29,13 @@ class StepsForegroundService:SensorEventListener, Service() {
 
     override fun onCreate() {
 
-        registerCounter()
+        registerStepCounter()
         startStepService(stepCount.toString())
         super.onCreate()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-    }
-
-    fun startStepService(stepCount: String){
-        val serviceIntent = Intent(this, StepsForegroundService::class.java)
-        serviceIntent.putExtra(FOREGROUND_STEPS, stepCount)
-
-        ContextCompat.startForegroundService(this, serviceIntent);
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
@@ -65,10 +58,34 @@ class StepsForegroundService:SensorEventListener, Service() {
         startForeground(2, notification)
 
         //do heavy work on a background thread
-        registerCounter()
+        registerStepCounter()
         //stopSelf();
 
         return START_NOT_STICKY
+    }
+
+    fun startStepService(stepCount: String){
+        val serviceIntent = Intent(this, StepsForegroundService::class.java)
+        serviceIntent.putExtra(FOREGROUND_STEPS, stepCount)
+
+        ContextCompat.startForegroundService(this, serviceIntent);
+    }
+
+    fun registerStepCounter(){
+        sm = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        stepCounter = sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
+        if (sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)  != null){
+
+            Log.i(TAG, "Log.i --> Step counter really exists  ------------------  Step counter really exists ---------------")
+            //println(" println -->Step counter really exists  Step counter really exists")
+
+        }
+
+        stepCounter?.also {
+            sm.registerListener(this, it,
+                SensorManager.SENSOR_DELAY_NORMAL)
+        }
     }
 
 
@@ -81,32 +98,22 @@ class StepsForegroundService:SensorEventListener, Service() {
 
         //TODO put the value in shared pref and then calculate today's steps
         if (p0?.sensor == stepCounter){
-            var stepCountString= resources.getString(com.pokumars.fitbo.R.string.steps, String.format("%.0f",stepCount))
+
 
             //println("Step counter has been registered")
             //stepsTV.text = getString(R.string.sensor_val,p0?.values?.get(0) ?: -1)
             Log.i(TAG,"step counter value -------------------> ${p0?.values?.get(0) ?: -1}")
             println("step counter value -------------------> ${p0?.values?.get(0) ?: -1}")
             stepCount = p0?.values?.get(0)
+
+            preferencesHelper.setUniversalStepCount(stepCount!!)
+
+            var todayStepCount = (preferencesHelper.getUniversalStepCount()?.minus(preferencesHelper.getMidnighStepCount()!!))
+            var stepCountString= resources.getString(com.pokumars.fitbo.R.string.steps, String.format("%.0f",todayStepCount))
+
+            //test to see if this really only changes at midnight.
+            Log.i(TAG,"step counter midnight value -------------------> ${preferencesHelper.getMidnighStepCount() ?: -1}")
             startStepService(stepCountString)
-        }
-
-    }
-
-    fun registerCounter(){
-        sm = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        stepCounter = sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-
-        if (sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)  != null){
-
-            Log.i(TAG, "Log.i --> Step counter really exists  Step counter really exists  Step counter really exists Step counter really exists")
-            //println(" println -->Step counter really exists  Step counter really exists")
-
-        }
-
-        stepCounter?.also {
-            sm.registerListener(this, it,
-                SensorManager.SENSOR_DELAY_NORMAL)
         }
     }
 }
