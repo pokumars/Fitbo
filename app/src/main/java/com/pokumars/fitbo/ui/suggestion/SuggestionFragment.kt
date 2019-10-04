@@ -29,7 +29,7 @@ import java.time.temporal.Temporal
 
 
 class SuggestionFragment : ScopedFragment(),KodeinAware{
-    
+
     override val kodein by closestKodein()
 
     private val viewModelFactory:SuggestionViewModelFactory by instance()
