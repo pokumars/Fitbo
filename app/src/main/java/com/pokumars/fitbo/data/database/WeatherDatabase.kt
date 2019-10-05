@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.pokumars.fitbo.data.Converter
 
-@Database(entities = [CurrentWeather::class, Location::class],version = 1)
+@Database(entities = [CurrentWeather::class, Location::class],version = 2)
 @TypeConverters(Converter::class)
 abstract class WeatherDatabase:RoomDatabase() {
     abstract fun currentWeatherDao(): CurrentWeatherDao
