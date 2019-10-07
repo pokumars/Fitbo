@@ -80,7 +80,7 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+100 steps"
+        android:text="button"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -110,7 +110,7 @@
         app:layout_constraintTop_toBottomOf="@+id/runTimer" />
 
     <TextView
-        android:id="@+id/testStepsTV"
+        android:id="@+id/runStepsTV"
         android:layout_width="159dp"
         android:layout_height="51dp"
         android:text="500 steps"

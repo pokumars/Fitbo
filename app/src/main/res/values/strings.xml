@@ -15,6 +15,9 @@
     <string name="kcal">%1$s kcal</string>
     <string name="kcal_burnt">%1$s kcal burnt</string>
 
+    <string name="calories">%1$s calories</string>
+    <string name="calories_burnt">%1$s calories burnt</string>
+
     <string name="km">%1$s km</string>
     <string name="distance_covered">%1$s km covered</string>
     <string name="metres">%1$d metres</string>

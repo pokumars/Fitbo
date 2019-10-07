@@ -19,6 +19,7 @@ import com.pokumars.fitbo.ui.TAG
 
 const val FOREGROUND_STEPS = "foreground steps"
 class StepsForegroundService:SensorEventListener, Service() {
+    var stepsHaveBeenSet= false
 
     private lateinit var sm: SensorManager
     private var stepCounter: Sensor? = null
@@ -80,7 +81,7 @@ class StepsForegroundService:SensorEventListener, Service() {
 
         if (sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)  != null){
 
-            Log.i(TAG, "Log.i --> Step counter really exists  ------------------  Step counter really exists ---------------")
+            //Log.i(TAG, "Step counter really exists  ------------------  Step counter really exists ---------------")
             //println(" println -->Step counter really exists  Step counter really exists")
 
         }
@@ -97,19 +98,28 @@ class StepsForegroundService:SensorEventListener, Service() {
         println("accuracy changed ------> accuracy changed ------>  accuracy changed ------> accuracy changed")
     }
 
+
     override fun onSensorChanged(p0: SensorEvent?) {
 
-        //TODO put the value in shared pref and then calculate today's steps
         if (p0?.sensor == stepCounter){
-
-
-            //println("Step counter has been registered")
-            //stepsTV.text = getString(R.string.sensor_val,p0?.values?.get(0) ?: -1)
             Log.i(TAG,"step counter value -------------------> ${p0?.values?.get(0) ?: -1}")
-            println("step counter value -------------------> ${p0?.values?.get(0) ?: -1}")
+            //println("step counter value -------------------> ${p0?.values?.get(0) ?: -1}")
             stepCount = p0?.values?.get(0)
 
             preferencesHelper.setUniversalStepCount(stepCount!!)
+            if(!preferencesHelper.getIsExercising()!!){
+                preferencesHelper.setExerciseStartStepCount(stepCount!!)
+            }
+
+
+            //This condition sets the steps to zero when ypu install the app first time otherwise it would be the total steps of th step-counter
+            if(preferencesHelper.getAppFirstUse()!!) {
+                if(!stepsHaveBeenSet){
+                    preferencesHelper.setMidnighStepCount(stepCount!!)
+                    stepsHaveBeenSet = true
+                }
+            }
+
 
             var todayStepCount = (preferencesHelper.getUniversalStepCount()?.minus(preferencesHelper.getMidnighStepCount()!!))
             var stepCountString= resources.getString(com.pokumars.fitbo.R.string.steps, String.format("%.0f",todayStepCount))

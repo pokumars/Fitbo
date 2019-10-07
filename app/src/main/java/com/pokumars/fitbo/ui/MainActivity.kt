@@ -1,7 +1,13 @@
 package com.pokumars.fitbo.ui
 
+import android.app.AlarmManager
+import android.app.Application
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -11,16 +17,25 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.pokumars.fitbo.R
 import com.pokumars.fitbo.util.SharedPreferencesHelper
+import com.pokumars.fitbo.util.StepsCheckAlarmReceiver
 import com.pokumars.fitbo.util.StepsForegroundService
+import java.util.*
 
 //const val TAG ="FITBOAPP"
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var preferencesHelper: SharedPreferencesHelper
+
+    var alarmManager: AlarmManager? = null
+    private var appUsedBefore: Boolean = false
+    private lateinit var alarmPendingIntent: PendingIntent
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        preferencesHelper =
+            SharedPreferencesHelper(this)
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -34,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_history
             )
         )
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         startStepCounterForegroundService()
@@ -59,5 +75,3 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
-
-

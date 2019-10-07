@@ -36,7 +36,7 @@ class EndExerciseFragment : Fragment() {
         stepsResultTV.text= resources.getString(R.string.steps, String.format("%.2f",stepsRun))*/
 
         distanceResultTV.text = resources.getString(R.string.km, distanceTravelled)
-        caloriesResultTV.text = resources.getString(R.string.kcal_burnt, calories)
+        caloriesResultTV.text = resources.getString(R.string.calories, calories)
         stepsResultTV.text= resources.getString(R.string.steps, stepsRun)
     }
 
