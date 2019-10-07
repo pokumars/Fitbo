@@ -1,18 +1,17 @@
-{ "rainy": {
-    "Gym": "Go the Gym ",
-    "swimming": "A good day to swim in door"
-  },
-  "sunny":{
-      "run": "Run outside and enjoy the sun",
-      "football": "playing  football might be fun"
-  },
-  "cloudy": {
-
-  },
-  "clear": {
-
-  },
-  "snowy":{
-
-  }
+{
+  "rainys": [
+    "Go for swimming",
+    "Do some exercise in the gym",
+    "enjoy indoor badminton"
+  ],
+  "snows": [
+    "You can enjoy indoor football",
+    "Go for wall climbing",
+    "you can play table tennis"
+  ],
+  "summers": [
+    "can enjoy outdoor football",
+    "Go for outdoor swimming",
+    "go for running in the forest"
+  ]
 }

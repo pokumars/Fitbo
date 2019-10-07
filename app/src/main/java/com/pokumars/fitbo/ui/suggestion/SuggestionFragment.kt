@@ -1,37 +1,25 @@
 package com.pokumars.fitbo.ui.suggestion
-
-import android.content.Context
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pokumars.fitbo.R
 import com.pokumars.fitbo.data.GlideApp
-import com.pokumars.fitbo.data.network.LocationProvider
-import com.pokumars.fitbo.data.network.LocationProviderImpl
-import com.pokumars.fitbo.ui.ForecastApplication
-import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.android.synthetic.main.fragment_suggestion.*
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
-import java.io.IOException
-import java.io.InputStream
-import java.nio.charset.Charset
+
 
 class SuggestionFragment : ScopedFragment(),KodeinAware{
+    private lateinit var listView:ListView
     override val kodein by closestKodein()
 
     private val viewModelFactory:SuggestionViewModelFactory by instance()
@@ -43,7 +31,9 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_suggestion, container, false)
+        val root = inflater.inflate(R.layout.fragment_suggestion, container, false)
+        listView = root.findViewById(R.id.list_view) as ListView
+        return root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -51,8 +41,7 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
         viewModel = ViewModelProviders.of(this,viewModelFactory)
             .get(SuggestionViewModel::class.java)
             bindUI()
-        readJSONFromAsset()
-        Log.d("JSON","${readJSONFromAsset()}")
+
     }
     private fun bindUI()=launch{
         val currentWeather = viewModel.weather.await()
@@ -60,15 +49,41 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
         val currentLocation =viewModel.location.await()
 
         currentLocation.observe(this@SuggestionFragment, Observer {
-            /*if (location==null)return@Observer
-            updateLocation(location.name)*/
-            //updateLocation(it.name)
 
         })
         currentWeather.observe(this@SuggestionFragment, Observer {
             if(it==null) return@Observer
+            Log.d("feels----","${it.feelslike}")
+            val rainDay = arrayOf(
+                "Go for swimming",
+                "Do some exercise in the gym",
+                "enjoy indoor badminton",
+                "Go for dance lesson",
+                "Take part in indoor sport activities")
+            val snow = arrayOf(
+                "You can enjoy indoor football",
+                "Go for wall climbing",
+                "you can play table tennis",
+                "Go for dance lesson",
+                "Go for gym exercise"
+                )
+            val summer = arrayOf(
+                "You can enjoy outdoor football",
+                "Go for outdoor swimming",
+                "Go for running in the forest",
+                "You can go to beach football")
+            if(it.temperature in 0..20 || it.weatherDescriptions.toString()=="rainy"){
+                listCondition(rainDay)
+            }
+            else if(it.temperature<=0 || it.weatherDescriptions.toString()=="snowy"){
+                listCondition(snow)
+            }
+            else{
+                listCondition(summer)
+            }
 
-           updateLocation("Vantaa")
+
+            updateLocation("Vantaa")
             updateDateToToday()
             group_loading.visibility =View.GONE
             textView_temperature.text ="${it.temperature}°C"
@@ -89,7 +104,7 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
 
     }
-    fun readJSONFromAsset():JSONObject? {
+    /*fun readJSONFromAsset():JSONObject? {
 
         var json: String? = null
         val charset: Charset = Charsets.UTF_8
@@ -107,8 +122,11 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
             ex.printStackTrace()
             return null
         }
-        return JSONObject(json)
+        return JSONObject(json!!)
+    }*/
+
+    private fun listCondition(condition:Array<String>){
+        val adapter = ArrayAdapter(activity!!.applicationContext, android.R.layout.simple_list_item_1,condition)
+        listView.adapter = adapter
     }
-
-
 }
