@@ -18,9 +18,14 @@
     <string name="calories">%1$s calories</string>
     <string name="calories_burnt">%1$s calories burnt</string>
 
+    <string name="today_page_calories"> %1$s \ncalories</string>
+    <string name="today_page_calories_burnt"> %1$s \ncalories burnt</string>
+
     <string name="km">%1$s km</string>
     <string name="distance_covered">%1$s km covered</string>
     <string name="metres">%1$d metres</string>
+
+    <string name="today_page_km"> %1$s \nkm</string>
 
 
     <string name="weather_today">%1$s weather today</string>

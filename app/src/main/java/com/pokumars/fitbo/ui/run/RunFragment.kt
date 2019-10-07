@@ -47,7 +47,7 @@ class RunFragment : Fragment(),SensorEventListener {
 
         runViewModel =
             ViewModelProviders.of(this).get(RunViewModel::class.java)
-        runViewModel.setWeight()
+
 
 
         // Inflate the layout for this fragment

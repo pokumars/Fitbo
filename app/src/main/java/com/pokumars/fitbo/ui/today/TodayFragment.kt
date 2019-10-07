@@ -43,11 +43,26 @@ class TodayFragment : Fragment(),SensorEventListener {
 
 
            todayViewModel.setFirstTime()//turn this on so alarm is never set again
-
-
+           updateValues()
            text_today.text = "Steps\n\n ${stepCountString}"
            stepsNumberTextView.text = "$stepCountString"
        }
+    }
+
+    fun updateValues(){
+        todayViewModel.distanceInMetres = todayViewModel.stride * todayViewModel.todayStepCount()
+        todayViewModel.distanceTravelled = todayViewModel.distanceInMetres/1000
+        todayViewModel.calories =  (todayViewModel.distanceTravelled * todayViewModel.bodyMass!!)
+        displayValues()
+    }
+
+    fun displayValues(){
+
+        distanceCoveredTextView.setText(resources.getString(R.string.today_page_km, String.format("%.2f",todayViewModel.distanceTravelled)))
+        kcalTextView.setText(resources.getString(R.string.today_page_calories, String.format("%.2f",todayViewModel.calories)))
+        //runStepsTV.setText(resources.getString(R.string.steps, String.format("%.0f",todayViewModel.todayStepCount())))
+        //Log.i(TAG, "----- displayValues()----------")
+
     }
 
     override fun onResume() {
@@ -83,6 +98,7 @@ class TodayFragment : Fragment(),SensorEventListener {
             textView.text = it
         })
 
+        todayViewModel.setWeight()
         return root
     }
 

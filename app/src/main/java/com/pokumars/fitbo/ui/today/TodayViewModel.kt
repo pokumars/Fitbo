@@ -19,19 +19,32 @@ import com.pokumars.fitbo.util.StepsCheckAlarmReceiver
 import java.util.*
 
 class TodayViewModel(application: Application) : BaseViewModel(application) {
+    private var preferencesHelper =
+        SharedPreferencesHelper(getApplication())
 
     private val context = getApplication<Application>().applicationContext
 
+    val stride: Float =  0.762f
+    fun todayStepCount():Float {
+        return preferencesHelper.getUniversalStepCount()?.minus(preferencesHelper.getMidnighStepCount()!!)!!
+    }
 
-    private var preferencesHelper =
-        SharedPreferencesHelper(getApplication())
+    var distanceInMetres: Float = stride * todayStepCount() //in metres
+    var distanceTravelled: Float = (distanceInMetres/1000)
+    val bodyMass:Float = preferencesHelper.getWeight()!!
+
+    var calories: Float =  (distanceTravelled * bodyMass!!)
+
+
+
+
+
 
     var alarmManager: AlarmManager? = null
     private lateinit var alarmPendingIntent: PendingIntent
     private var appUsedBefore: Boolean = false
-    fun todayStepCount():Float {
-        return preferencesHelper.getUniversalStepCount()?.minus(preferencesHelper.getMidnighStepCount()!!)!!
-    }
+
+
 
 
     private val _text = MutableLiveData<String>().apply {
@@ -62,6 +75,10 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
 
     fun setFirstTime(){
         preferencesHelper.setAppFirstUse()
+    }
+
+    fun setWeight(){
+        preferencesHelper.setWeight(80f)
     }
 
     fun createAlarmManager(){

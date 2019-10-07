@@ -36,12 +36,8 @@ class RunViewModel(application: Application) : BaseViewModel(application) {
 
 
 
-
-
     var calories: Float =  (distanceTravelled * bodyMass!!)
 
 
-    fun setWeight(){
-        preferencesHelper.setWeight(80f)
-    }
+
 }
