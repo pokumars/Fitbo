@@ -4,14 +4,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.pokumars.fitbo.R
 import com.pokumars.fitbo.data.GlideApp
 import kotlinx.android.synthetic.main.fragment_suggestion.*
+import kotlinx.android.synthetic.main.suggestion.view.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -19,7 +20,6 @@ import org.kodein.di.generic.instance
 
 
 class SuggestionFragment : ScopedFragment(),KodeinAware{
-    private lateinit var listView:ListView
     override val kodein by closestKodein()
 
     private val viewModelFactory:SuggestionViewModelFactory by instance()
@@ -31,9 +31,7 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_suggestion, container, false)
-        listView = root.findViewById(R.id.list_view) as ListView
-        return root
+        return inflater.inflate(R.layout.fragment_suggestion, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -126,7 +124,27 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
     }*/
 
     private fun listCondition(condition:Array<String>){
-        val adapter = ArrayAdapter(activity!!.applicationContext, android.R.layout.simple_list_item_1,condition)
-        listView.adapter = adapter
+        rc_view.layoutManager = LinearLayoutManager(context)
+        rc_view.adapter =SuggestionAdapter(condition)
+
     }
 }
+class SuggestionAdapter (private var dataSource: Array<String>) : RecyclerView.Adapter<ViewHolder>(){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val cellRow = layoutInflater.inflate(R.layout.suggestion, null)
+        return ViewHolder(cellRow)
+    }
+
+    override fun getItemCount(): Int {
+        return dataSource.size
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.view.rc_text_suggestion.text = dataSource[position]
+
+
+    }
+
+}
+class ViewHolder(var view: View) : RecyclerView.ViewHolder(view)
