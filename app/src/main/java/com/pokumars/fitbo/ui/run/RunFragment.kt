@@ -1,6 +1,11 @@
 package com.pokumars.fitbo.ui.run
 
 
+import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
@@ -8,22 +13,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.pokumars.fitbo.R
 import com.pokumars.fitbo.ui.TAG
 
 import kotlinx.android.synthetic.main.fragment_run.*
+import java.util.concurrent.TimeUnit
 
 /**
  * A simple [Fragment] subclass.
  */
-class RunFragment : Fragment() {
-    private lateinit var runViewModel: RunViewModel
+class RunFragment : Fragment(),SensorEventListener {
+    //StepCounter
+    private lateinit var sensorManager: SensorManager
+    private  var steps:Sensor? = null
+    private var running = false
 
-    /*var calories= ""
-    var distanceTravelled= ""
-    var stepsRun= ""*/
+
+
+
+    private lateinit var runViewModel: RunViewModel
 
 
     var timerIsOn= false
@@ -37,7 +48,7 @@ class RunFragment : Fragment() {
 
         runViewModel =
             ViewModelProviders.of(this).get(RunViewModel::class.java)
-        runViewModel.setWeight()
+
 
 
         // Inflate the layout for this fragment
@@ -45,22 +56,21 @@ class RunFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        startRunBtn.setOnClickListener { startTimer() }
+        startRunBtn.setOnClickListener { startExercise() }
         stopRunBtn.setOnClickListener { stopExercise() }
         pauseRunBtn.setOnClickListener { pauseTimer() }
         resumeRunBtn.setOnClickListener { startTimer() }
 
-        button1.setOnClickListener {
-            Log.i(TAG, "${runViewModel.stepsRun} steps")
-            Log.i(TAG, "${runViewModel.distanceTravelled} km")
-            Log.i(TAG, "${runViewModel.calories} calories")
 
-            displayValues()
-        }
+
+        sensorManager = activity?.getSystemService(Context.SENSOR_SERVICE)as SensorManager
+        steps = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
 
         runDistanceTextView.text = resources.getString(R.string.km, String.format("%.2f",runViewModel.distanceTravelled))
-        runCaloriesTextView.text = resources.getString(R.string.kcal_burnt, String.format("%.2f",runViewModel.calories))
-        testStepsTV.text= resources.getString(R.string.steps, String.format("%.2f", runViewModel.stepsRun))
+        runCaloriesTextView.text = resources.getString(R.string.calories, String.format("%.1f",runViewModel.calories))
+        runStepsTV.text= resources.getString(R.string.steps, String.format("%.2f", runViewModel.stepsRun))
+
 
 
         if(!timerIsOn){
@@ -69,30 +79,85 @@ class RunFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+
+    }
+
+    override fun onSensorChanged(event: SensorEvent) {
+        if(event.sensor == steps){
+            val exerciseStepsValue = (runViewModel.universalSteps()?.minus( runViewModel.exerciseStartSteps()!!))
+
+            updateValues(exerciseStepsValue ?: -1f)
+        }
+    }
+
+    fun startExercise(){
+
+        running = true
+        runViewModel.setIsExercising(true)
+
+        steps?.also {
+            sensorManager.registerListener(this,it,SensorManager.SENSOR_DELAY_NORMAL)
+        }
+
+        //runViewModel.setStartingStepCount()
+        //Log.i(TAG, "Starting step count ${runViewModel.getStartingStepCount()}")
+        startTimer()
+        updateValues(0f)
+    }
+
+
+    fun resumeExercise(){
+
+    }
+    fun pauseExercise(){
+
+    }
+
     fun stopExercise(){
+        running =false
+        runViewModel.setIsExercising(false)
+
+        sensorManager.unregisterListener(this)
+
         val sCalories= String.format("%.2f", runViewModel.calories)
         val sDistanceTravelled= String.format("%.2f",runViewModel.distanceTravelled)
-        val sStepsRun= String.format("%.2f",runViewModel.stepsRun)
+        val sStepsRun= String.format("%.0f",runViewModel.stepsRun)
+
+        val minutes = stopTime / 1000 / 60
+        val seconds = -(stopTime / 1000 )% 60
+
+        val timeExercised = resources.getString(R.string.mins_seconds, minutes.toString(), seconds.toString())
+
+
+        Log.i(TAG, "stopTimer ---->$stopTime Milliseconds = $minutes minutes and $seconds seconds")
+
+        runViewModel.setStartingStepCount()
 
         stopTimer()
         this.findNavController().navigate(RunFragmentDirections
-            .actionRunFragmentToEndExerciseFragment(sCalories, sDistanceTravelled, sStepsRun))
+            .actionRunFragmentToEndExerciseFragment(sStepsRun, sDistanceTravelled, sCalories, timeExercised))
         setExerciseValuesToZero()
     }
 
     fun displayValues(){
-        updateValues()
-        runDistanceTextView.setText(resources.getString(R.string.km, String.format("%.2f",runViewModel.distanceTravelled)))
-        runCaloriesTextView.setText(resources.getString(R.string.kcal_burnt, String.format("%.2f",runViewModel.calories)))
-        testStepsTV.setText(resources.getString(R.string.steps, String.format("%.2f",runViewModel.stepsRun)))
+
+        runDistanceTextView.setText(resources.getString(R.string.km, String.format("%.0f",runViewModel.distanceTravelled)))
+        runCaloriesTextView.setText(resources.getString(R.string.calories, String.format("%.1f",runViewModel.calories)))
+        runStepsTV.setText(resources.getString(R.string.steps, String.format("%.0f",runViewModel.stepsRun)))
+        //Log.i(TAG, "----- displayValues()----------")
 
     }
 
-    fun updateValues(){
-        runViewModel.stepsRun +=100
+
+    fun updateValues(newStepValue: Float){
+        runViewModel.stepsRun = newStepValue
+        //Log.i(TAG, "----- updateValues()----------")
+
         runViewModel.distanceInMetres = runViewModel.stride * runViewModel.stepsRun
         runViewModel.distanceTravelled = runViewModel.distanceInMetres/1000
-        runViewModel.calories =  (runViewModel.distanceTravelled * runViewModel.bodyMass!!)
+        runViewModel.calories =  (runViewModel.distanceTravelled * runViewModel.bodyMass)
+        displayValues()
     }
 
 
@@ -113,7 +178,7 @@ class RunFragment : Fragment() {
 
     fun stopTimer(){//and then show the results of the run
         timerIsOn = false
-        stopTime =runTimer.base - SystemClock.elapsedRealtime()
+
 
         resetTimer()
 
@@ -121,13 +186,11 @@ class RunFragment : Fragment() {
         resumeRunBtn.visibility = View.GONE
         stopRunBtn.visibility = View.GONE
         startRunBtn.visibility = View.VISIBLE //show only start Run after
-
-
-        //Todo take user to result fragment
     }
 
     fun setExerciseValuesToZero(){
-        //If we have to manually set the exercise values to 0. For now the reset onCreate so ne need yet
+        //If we have to manually set the exercise values to 0. For now the reset onCreate so no need yet
+        //runViewModel.wipeExerciseValues()
     }
 
 
@@ -146,7 +209,7 @@ class RunFragment : Fragment() {
         runTimer.stop()
 
         runTimer.base = SystemClock.elapsedRealtime() + stopTime
-        Log.i(TAG, "Final time -------------- ${finalTime.toString()}")
+        Log.i(TAG, "time reset time  should be zero-------------- ${finalTime.toString()}")
     }
 
     fun countTheTime(){
