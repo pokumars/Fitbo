@@ -7,10 +7,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -40,6 +42,16 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment)
+
+        //This block makes the bottomNavigationBar invisible in pages that are not top-level
+        navController.addOnDestinationChangedListener{ _, page: NavDestination, _->
+            if(page.id == R.id.navigation_home || page.id == R.id.navigation_suggestion ||page.id == R.id.navigation_history ){
+                navView.visibility = View.VISIBLE
+            }else{
+                navView.visibility = View.GONE
+            }
+        }
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
@@ -56,12 +68,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp()
+    }
+
     fun startStepCounterForegroundService(){
         //var input = edit_text_input.text.toString()
         //serviceIntent.putExtra("inputExtra", input)
 
         val serviceIntent = Intent(this, StepsForegroundService::class.java)
-        ContextCompat.startForegroundService(this, serviceIntent);
+        ContextCompat.startForegroundService(this, serviceIntent)
     }
 
     fun stopService(){// if we need to stop the service

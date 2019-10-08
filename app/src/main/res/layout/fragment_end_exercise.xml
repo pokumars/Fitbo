@@ -14,24 +14,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             style="@style/resultTextView"
             android:text="@string/well_done_champ" />
 
         <TextView
+            android:id="@+id/timeResultTV"
+            style="@style/exerciseTextView"
+            android:text="@string/mins_seconds" />
+
+        <TextView
             android:id="@+id/distanceResultTV"
-            style="@style/resultTextView"
-            android:text="y km"/>
+            style="@style/exerciseTextView"
+            android:text="@string/km"/>
 
         <TextView
             android:id="@+id/caloriesResultTV"
-            style="@style/resultTextView"
-            android:text="xy kCal"/>
+            style="@style/exerciseTextView"
+            android:text="@string/calories"/>
 
         <TextView
             android:id="@+id/stepsResultTV"
-            style="@style/resultTextView"
-            android:text="xxyy steps"/>
+            style="@style/exerciseTextView"
+            android:text="@string/steps"/>
     </LinearLayout>
 
 

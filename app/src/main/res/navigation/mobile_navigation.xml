@@ -27,18 +27,20 @@
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_history" />
     <fragment
+        android:label="@string/title_exercise"
         android:id="@+id/runFragment"
         android:name="com.pokumars.fitbo.ui.run.RunFragment"
-        android:label="fragment_run"
-        tools:layout="@layout/fragment_run" >
+        tools:layout="@layout/fragment_run">
         <action
             android:id="@+id/action_runFragment_to_endExerciseFragment"
-            app:destination="@id/endExerciseFragment" />
+            app:destination="@id/endExerciseFragment"
+            app:popUpTo="@+id/runFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/endExerciseFragment"
         android:name="com.pokumars.fitbo.ui.endexercise.EndExerciseFragment"
-        android:label="fragment_end_exercise"
+        android:label="@string/title_results"
         tools:layout="@layout/fragment_end_exercise" >
         <argument
             android:name="numSteps"
@@ -48,6 +50,9 @@
             app:argType="string" />
         <argument
             android:name="numKCal"
+            app:argType="string" />
+        <argument
+            android:name="timeExercisedArg"
             app:argType="string" />
     </fragment>
 </navigation>

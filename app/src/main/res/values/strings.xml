@@ -3,10 +3,18 @@
     <string name="title_today">Today</string>
     <string name="title_suggestion">Suggestion</string>
     <string name="title_notifications">History</string>
+    <string name="title_results">Results</string>
+    <string name="title_exercise">Exercise</string>
+
+
 
     <string name="start">Start</string>
     <string name="walk">Walk</string>
     <string name="run">Run</string>
+    <string name="stop">Stop</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+
 
     <string name="steps_today">%1$d steps today</string>
     <string name="steps_today_no_number">steps\n today</string>
@@ -56,6 +64,9 @@
 
     <!--Exercise results -->
     <string name="well_done_champ">Well done Champ!\nThese are your stats</string>
+    <string name="mins_seconds">%1$s mins %2$s sec</string>
+
+
 
 
 </resources>
