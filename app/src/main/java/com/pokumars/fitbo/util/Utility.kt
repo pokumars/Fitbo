@@ -23,13 +23,15 @@ class BootReceiver: BroadcastReceiver() {
     }
 
     fun createAlarmManager(context: Context?){
+        //this is after Boot Alarm. The on start alarm is in TodayViewmodel
         Toast.makeText( context,"setting Alarm after boot", Toast.LENGTH_LONG).show()
         Log.i(TAG, "setting Alarm  after boot")
 
         // Set the alarm to start at approximately 00:00 p.m as specified in calendar.
         val calendar : Calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.HOUR_OF_DAY, 23)
+            set(Calendar.MINUTE, 59)
         }
 
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -37,13 +39,23 @@ class BootReceiver: BroadcastReceiver() {
             PendingIntent.getBroadcast(context, 0, intent, 0)
         }
 
+        //this is after Boot Alarm. The on start alarm is in TodayViewmodel
         //TODO What it should do when alarm runs is in the class StepsCheckAlarmReceiver in Utility file
+        var oneDayInMilliS = 24L*60 *60 *1000
+        alarmManager?.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                oneDayInMilliS,
+                alarmPendingIntent
+        )
+
+        /*var twoMinutes = 2L * 60 *1000 *1000
         alarmManager?.setRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
+            twoMinutes,
             alarmPendingIntent
-        )
+        )*/
     }
 }
 
@@ -51,6 +63,7 @@ class StepsCheckAlarmReceiver: BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         val currentTime = System.currentTimeMillis()
+
         var preferencesHelper = SharedPreferencesHelper(context!!)
         var currentSteps = preferencesHelper.getUniversalStepCount()
 

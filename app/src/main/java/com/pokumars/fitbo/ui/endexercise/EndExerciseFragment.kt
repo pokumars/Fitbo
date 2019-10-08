@@ -17,6 +17,7 @@ class EndExerciseFragment : Fragment() {
     var calories= ""
     var distanceTravelled= ""
     var stepsRun= ""
+    var timeExercised = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +37,9 @@ class EndExerciseFragment : Fragment() {
         stepsResultTV.text= resources.getString(R.string.steps, String.format("%.2f",stepsRun))*/
 
         distanceResultTV.text = resources.getString(R.string.km, distanceTravelled)
-        caloriesResultTV.text = resources.getString(R.string.kcal_burnt, calories)
+        caloriesResultTV.text = resources.getString(R.string.calories, calories)
         stepsResultTV.text= resources.getString(R.string.steps, stepsRun)
+        timeResultTV.text = timeExercised
     }
 
 fun setValuesFromArgs(){
@@ -45,5 +47,6 @@ fun setValuesFromArgs(){
     calories = args.numKCal
     distanceTravelled= args.numKilometres
     stepsRun = args.numSteps
+    timeExercised = args.timeExercisedArg
 }
 }

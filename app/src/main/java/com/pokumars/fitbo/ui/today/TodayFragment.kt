@@ -6,6 +6,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +16,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.pokumars.fitbo.R
+import com.pokumars.fitbo.ui.TAG
 import com.pokumars.fitbo.util.SharedPreferencesHelper
 import kotlinx.android.synthetic.main.fragment_today.*
 
 class TodayFragment : Fragment(),SensorEventListener {
     private lateinit var todayViewModel: TodayViewModel
+
+    //StepCounter
     private lateinit var sensorManager:SensorManager
     private  var steps:Sensor? = null
     private var running = false
@@ -34,12 +38,31 @@ class TodayFragment : Fragment(),SensorEventListener {
 
         val stepsValue =event.values[0]
        if(event.sensor == steps){
-           var todayStepsValue = String.format("%.0f",stepsValue- todayViewModel.midnightSteps!!)
+           var stepCountString= String.format("%.0f",todayViewModel.todayStepCount())
+           //Log.i(TAG, "steps in TodayFrag ------> $stepsValue steps in ")
 
-           text_today.text = "Steps\n\n ${todayStepsValue}"
-           stepsNumberTextView.text = "$todayStepsValue"
-           //text_today.setText((stepsValue- todayViewModel.midnightSteps!!).toString())
+
+           todayViewModel.setFirstTime()//turn this on so alarm is never set again
+           updateValues()
+           text_today.text = "Steps\n\n ${stepCountString}"
+           stepsNumberTextView.text = "$stepCountString"
        }
+    }
+
+    fun updateValues(){
+        todayViewModel.distanceInMetres = todayViewModel.stride * todayViewModel.todayStepCount()
+        todayViewModel.distanceTravelled = todayViewModel.distanceInMetres/1000
+        todayViewModel.calories =  (todayViewModel.distanceTravelled * todayViewModel.bodyMass!!)
+        displayValues()
+    }
+
+    fun displayValues(){
+
+        distanceCoveredTextView.setText(resources.getString(R.string.today_page_km, String.format("%.2f",todayViewModel.distanceTravelled)))
+        kcalTextView.setText(resources.getString(R.string.today_page_calories, String.format("%.2f",todayViewModel.calories)))
+        //runStepsTV.setText(resources.getString(R.string.steps, String.format("%.0f",todayViewModel.todayStepCount())))
+        //Log.i(TAG, "----- displayValues()----------")
+
     }
 
     override fun onResume() {
@@ -75,14 +98,15 @@ class TodayFragment : Fragment(),SensorEventListener {
             textView.text = it
         })
 
+        todayViewModel.setWeight()
         return root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
 
         todayViewModel.createAlarmManager()//setAlarm
-        todayViewModel.setFirstTime()//turn thison so alarm is never set again
-        todayViewModel.setBootReceiverEnabled()//turn this on so bootreceiver will do its part and set new alarm after reboot of phone
+        todayViewModel.setFirstTime()//turn this on so alarm is never set again
+        todayViewModel.setBootReceiverEnabled()//turn this on so boot receiver will do its part and set new alarm after reboot of phone
         super.onActivityCreated(savedInstanceState)
     }
 
@@ -93,6 +117,10 @@ class TodayFragment : Fragment(),SensorEventListener {
         }
 
         super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    fun stepsFirstUseSetup(){
 
     }
 }

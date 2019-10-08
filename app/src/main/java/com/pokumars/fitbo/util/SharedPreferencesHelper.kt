@@ -16,7 +16,9 @@ class SharedPreferencesHelper {
         private const val UNIVERSAL_STEP_C0UNT= "universal step count"
         private const val MIDNIGHT_STEP_C0UNT= "midnight step count"
         private const val TODAY_STEP_C0UNT= "today step count"
+        private const val EXERCISE_START_STEPS = "exercise start steps"
         private const val USER_WEIGHT= "user weight"
+        private const val ISEXERCISING = "is exercising"
         private var prefs: SharedPreferences? = null
 
         @Volatile private var instance: SharedPreferencesHelper? = null
@@ -39,6 +41,14 @@ class SharedPreferencesHelper {
 
     }
 
+    fun setIsExercising(value: Boolean){
+        prefs?.edit(commit = true){
+            putBoolean(ISEXERCISING, value)
+        }
+    }
+
+    fun getIsExercising() = prefs?.getBoolean(ISEXERCISING,false)
+
     //Set universal steps
     fun setUniversalStepCount(steps: Float){
         prefs?.edit(commit = true){
@@ -55,7 +65,7 @@ class SharedPreferencesHelper {
         }
     }
     //get Midnight Steps
-    fun getMidnighStepCount() = prefs?.getFloat(MIDNIGHT_STEP_C0UNT, 0f)
+    fun getMidnighStepCount() = prefs?.getFloat(MIDNIGHT_STEP_C0UNT, -1f)
 
     //Set first use
     fun setAppFirstUse(){
@@ -77,5 +87,12 @@ class SharedPreferencesHelper {
 
     fun getWeight ()= prefs?.getFloat(USER_WEIGHT, 80f)
 
-
+    //Set steps at start of Exercise
+    fun setExerciseStartStepCount(steps: Float){
+        prefs?.edit(commit = true){
+            putFloat(EXERCISE_START_STEPS, steps)
+        }
+    }
+    //get steps at start of Exercise
+    fun getExerciseStartStepCount() = prefs?.getFloat(EXERCISE_START_STEPS, -1f)
 }
