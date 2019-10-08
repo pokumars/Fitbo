@@ -9,16 +9,15 @@ object Converter{
 
     @TypeConverter
     @JvmStatic
-    fun saveList(listOfString: List<String>): String {
-        return Gson().toJson(listOfString)
+    fun fromString(value: String): List<String> {
+        val listType = object : TypeToken<List<String>>() {}.type
+        return Gson().fromJson(value, listType)
     }
+
     @TypeConverter
     @JvmStatic
-    fun restoreList(listOfString: String): List<String> {
-        return   listOf("we1","w2")/*Gson().fromJson(listOfString, object : TypeToken<List<String>>() {
-
-        }.getType())*/
+    fun fromListLisr(list: List<String>): String {
+        val gson = Gson()
+        return gson.toJson(list)
     }
-
-
 }

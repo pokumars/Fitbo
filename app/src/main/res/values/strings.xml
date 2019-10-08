@@ -22,7 +22,7 @@
 
     <string name="weather_today">%1$s weather today</string>
     <string name="temperature">%1$d °C</string>
-
+    <string name="our_suggestion"> Suggestions For Today</string>
     <string name="cold_exercise_suggestions">It is cold in %1$s. Here are some exercises we could suggest \n
     - %2$s \n
     - %3$s \n

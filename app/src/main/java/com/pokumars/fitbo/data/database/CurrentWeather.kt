@@ -9,6 +9,7 @@ import com.pokumars.fitbo.data.Converter
 
 const val CURRENT_WEATHER_ID =0
 @Entity(tableName = "current_weather")
+
 data class CurrentWeather(
     @SerializedName("feelslike")
     val feelslike: Int,
@@ -26,10 +27,10 @@ data class CurrentWeather(
     val visibility: Int,
     @SerializedName("weather_code")
     val weatherCode: Int,
-    /*@SerializedName("weather_descriptions")
+    @SerializedName("weather_descriptions")
     val weatherDescriptions: List<String>,
     @SerializedName("weather_icons")
-    val weatherIcons: List<String>,*/
+    val weatherIcons: List<String>,
     @SerializedName("wind_dir")
     val windDir: String,
     @SerializedName("wind_speed")
