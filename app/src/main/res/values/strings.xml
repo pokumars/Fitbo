@@ -67,6 +67,10 @@
     <string name="mins_seconds">%1$s mins %2$s sec</string>
 
 
+    <!--Weather strings -->
+    <string name="feels_like">"It feels like %1$s  °C"</string>
+
+
 
 
 </resources>
