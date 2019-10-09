@@ -17,7 +17,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.pokumars.fitbo.R
 import com.pokumars.fitbo.ui.TAG
+import com.pokumars.fitbo.ui.suggestion.SuggestionFragment
 import com.pokumars.fitbo.util.SharedPreferencesHelper
+import com.pokumars.fitbo.util.StepsMangager
 import kotlinx.android.synthetic.main.fragment_today.*
 
 class TodayFragment : Fragment(),SensorEventListener {
@@ -37,6 +39,7 @@ class TodayFragment : Fragment(),SensorEventListener {
     override fun onSensorChanged(event: SensorEvent) {
 
         val stepsValue =event.values[0]
+        StepsMangager.addToStepsArray(todayViewModel.todayStepCount()       )
        if(event.sensor == steps){
            var stepCountString= String.format("%.0f",todayViewModel.todayStepCount())
            //Log.i(TAG, "steps in TodayFrag ------> $stepsValue steps in ")
@@ -44,8 +47,12 @@ class TodayFragment : Fragment(),SensorEventListener {
 
            todayViewModel.setFirstTime()//turn this on so alarm is never set again
            updateValues()
-           text_today.text = "Steps\n\n ${stepCountString}"
+           //text_today.text = "Steps\n\n ${stepCountString}"
            stepsNumberTextView.text = "$stepCountString"
+           stepsNumberTextView.setOnClickListener {view->
+               view.findNavController().navigate(TodayFragmentDirections.actionNavigationHomeToNavigationHistory())
+
+           }
        }
     }
 
@@ -93,9 +100,9 @@ class TodayFragment : Fragment(),SensorEventListener {
             ViewModelProviders.of(this).get(TodayViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_today, container, false)
-        val textView: TextView = root.findViewById(R.id.text_today)
+        //val textView: TextView = root.findViewById(R.id.text_today)
         todayViewModel.text.observe(this, Observer {
-            textView.text = it
+            //textView.text = it
         })
 
         todayViewModel.setWeight()

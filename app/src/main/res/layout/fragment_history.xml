@@ -30,11 +30,16 @@
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
-            <ImageView
+
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/graph"
                 android:layout_width="match_parent"
-                android:layout_height="360dp"
-                android:contentDescription="@string/daily_graph_content_description"
-                android:src="@drawable/dailygraph" />
+                android:layout_height="388dp"
+                android:layout_margin="@dimen/card_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"

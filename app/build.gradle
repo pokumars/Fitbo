@@ -99,4 +99,6 @@ dependencies {
     implementation "androidx.preference:preference:$preferencesVersion"
     implementation 'androidx.room:room-runtime:2.1.0'
     annotationProcessor 'androidx.room:room-compiler:2.1.0'
+
+    implementation 'com.jjoe64:graphview:4.2.2'
 }

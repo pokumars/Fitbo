@@ -79,5 +79,6 @@ class StepsCheckAlarmReceiver: BroadcastReceiver() {
         // when received what should it do
         //TODO at this point, check the universal steps and set that
         // in shared preference to use as the 0 level
+
     }
 }

@@ -79,13 +79,13 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
             else{
                 listCondition(summer)
             }
-
+            val degree =  " °C"
 
             updateLocation("Vantaa")
             updateDateToToday()
             group_loading.visibility =View.GONE
             textView_temperature.text ="${it.temperature}°C"
-            textView_feels_like_temperature.text ="It feels like ${it.feelslike} °C"
+            textView_feels_like_temperature.text =resources.getString(R.string.feels_like, it.feelslike.toString())
             textView_wind.text ="Wind: ${it.windSpeed} m/s ${it.windDir}"
             textView_visibility.text ="Visibility: ${it.visibility} km"
             textView_condition.text =it.weatherDescriptions[0]
