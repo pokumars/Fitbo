@@ -79,7 +79,6 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
             else{
                 listCondition(summer)
             }
-            val degree =  " °C"
 
             updateLocation("Vantaa")
             updateDateToToday()
@@ -89,7 +88,6 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
             textView_wind.text ="Wind: ${it.windSpeed} m/s ${it.windDir}"
             textView_visibility.text ="Visibility: ${it.visibility} km"
             textView_condition.text =it.weatherDescriptions[0]
-            Log.d("icons...","${it.weatherIcons}")
             GlideApp.with(this@SuggestionFragment)
                 .load("${it.weatherIcons[0]}")
                 .into(imageView_condition_icon)
@@ -102,31 +100,10 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
 
     }
-    /*fun readJSONFromAsset():JSONObject? {
-
-        var json: String? = null
-        val charset: Charset = Charsets.UTF_8
-        try {
-            val iStream = activity?.assets?.open("exercise.json")
-            val size = iStream?.available()
-            if (size!=null){
-                val buffer = ByteArray(size)
-                iStream.read(buffer)
-                iStream.close()
-                json = String(buffer, charset)
-            }
-
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-            return null
-        }
-        return JSONObject(json!!)
-    }*/
 
     private fun listCondition(condition:Array<String>){
         rc_view.layoutManager = LinearLayoutManager(context)
         rc_view.adapter =SuggestionAdapter(condition)
-
     }
 }
 class SuggestionAdapter (private var dataSource: Array<String>) : RecyclerView.Adapter<ViewHolder>(){

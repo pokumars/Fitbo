@@ -19,26 +19,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/text_notifications"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:textAlignment="center"
-                android:textSize="20sp" />
 
-
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/graph"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="388dp"
-                android:layout_margin="@dimen/card_margin"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent"
+                app:cardCornerRadius="@dimen/card_corner">
+
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="388dp"
+                    android:minWidth="@dimen/card_corner"
+                    android:outlineAmbientShadowColor="@color/colorPrimary"
+                    android:layout_margin="@dimen/card_margin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,12 +52,14 @@
                     android:textSize="28sp"
                     android:textAlignment="center"
                     android:textStyle="bold"
+                    android:textColor="@color/background"
                     android:text="@string/stats_since_boot"/>
 
                 <TextView
                     android:id="@+id/stepsHistoryTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/background"
                     android:text="@string/steps"
                     android:textSize="28sp" />
 
@@ -68,6 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/distance_covered"
+                    android:textColor="@color/background"
                     android:textSize="28sp" />
 
                 <TextView
@@ -75,6 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/kcal_burnt"
+                    android:textColor="@color/background"
                     android:textSize="28sp" />
 
             </LinearLayout>

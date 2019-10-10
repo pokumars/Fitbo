@@ -1,85 +1,58 @@
 package com.pokumars.fitbo.ui.today
-
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
-import com.budiyev.android.circularprogressbar.CircularProgressBar
 import com.pokumars.fitbo.R
-import com.pokumars.fitbo.ui.TAG
-import com.pokumars.fitbo.ui.suggestion.SuggestionFragment
-import com.pokumars.fitbo.util.SharedPreferencesHelper
 import com.pokumars.fitbo.util.StepsMangager
 import kotlinx.android.synthetic.main.fragment_today.*
 
 class TodayFragment : Fragment(),SensorEventListener {
     private lateinit var todayViewModel: TodayViewModel
-
     //StepCounter
     private lateinit var sensorManager:SensorManager
     private  var steps:Sensor? = null
     private var running = false
 
-
-
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 
     }
-
     override fun onSensorChanged(event: SensorEvent) {
-        //val stepsValue =event.values[0]
         StepsMangager.addToStepsArray(todayViewModel.todayStepCount()       )
        if(event.sensor == steps){
            val stepCountString= String.format("%.0f",todayViewModel.todayStepCount())
            //Log.i(TAG, "steps in TodayFrag ------> $stepsValue steps in ")
-
-
            todayViewModel.setFirstTime()//turn this on so alarm is never set again
            updateValues()
-           //text_today.text = "Steps\n\n ${stepCountString}"
-           stepsNumberTextView.text = "$stepCountString"
-          /* stepsNumberTextView.setOnClickListener {view->
-               view.findNavController().navigate(TodayFragmentDirections.actionNavigationHomeToNavigationHistory())
+           stepsNumberTextView.text = stepCountString
 
-           }*/
            val progressBar = progress_bar
-           val targetStep =100
-
+           val targetStep =1000
            progressBar.progress = (todayViewModel.todayStepCount()/targetStep) * 100
        }
     }
-
-    fun updateValues(){
+    private fun updateValues(){
         todayViewModel.distanceInMetres = todayViewModel.stride * todayViewModel.todayStepCount()
         todayViewModel.distanceTravelled = todayViewModel.distanceInMetres/1000
         todayViewModel.calories =  (todayViewModel.distanceTravelled * todayViewModel.bodyMass)
         displayValues()
     }
 
-    fun displayValues(){
+   private fun displayValues(){
 
         distanceCoveredTextView.setText(resources.getString(R.string.today_page_km, String.format("%.2f",todayViewModel.distanceTravelled)))
         kcalTextView.setText(resources.getString(R.string.today_page_calories, String.format("%.2f",todayViewModel.calories)))
-        //runStepsTV.setText(resources.getString(R.string.steps, String.format("%.0f",todayViewModel.todayStepCount())))
-        //Log.i(TAG, "----- displayValues()----------")
-
     }
-
     override fun onResume() {
         super.onResume()
         running = true
@@ -108,14 +81,9 @@ class TodayFragment : Fragment(),SensorEventListener {
             ViewModelProviders.of(this).get(TodayViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_today, container, false)
-        //val textView: TextView = root.findViewById(R.id.text_today)
-
-        todayViewModel.text.observe(this, Observer {
+        /*todayViewModel.text.observe(this, Observer {
             //textView.text = it
-        })
-
-
-
+        })*/
         setHasOptionsMenu(true)
         return root
     }
@@ -148,15 +116,13 @@ class TodayFragment : Fragment(),SensorEventListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        startRunFragmentBtn.setOnClickListener { view:View ->
+        startRunFragmentBtn.setOnClickListener {
             view.findNavController().navigate(TodayFragmentDirections.actionNavigationHomeToRunFragment())
         }
-        startWalkBtn.setOnClickListener { view:View ->
+        startWalkBtn.setOnClickListener {
             view.findNavController().navigate(TodayFragmentDirections.actionNavigationHomeToRunFragment())
         }
-
         super.onViewCreated(view, savedInstanceState)
-
     }
 
 }

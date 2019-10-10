@@ -1,7 +1,5 @@
 package com.pokumars.fitbo.ui.suggestion
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pokumars.fitbo.data.network.ForecastRepository
 import kotlinx.coroutines.*

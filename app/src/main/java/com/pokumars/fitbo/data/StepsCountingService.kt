@@ -14,7 +14,6 @@ import java.lang.Exception
 class StepsService:Service(),SensorEventListener{
     private lateinit var sensorManager: SensorManager
     private  var steps:Sensor? = null
-    private var running = false
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
@@ -32,8 +31,6 @@ class StepsService:Service(),SensorEventListener{
     }
 
     override fun onSensorChanged(event: SensorEvent) {
-
-        val stepsValue =event.values[0]
 
     }
 
@@ -54,8 +51,4 @@ class StepsService:Service(),SensorEventListener{
         }
     }
 
-    override fun onTaskRemoved(rootIntent: Intent?) {
-        super.onTaskRemoved(rootIntent)
     }
-
-}

@@ -16,7 +16,7 @@ object Converter{
 
     @TypeConverter
     @JvmStatic
-    fun fromListLisr(list: List<String>): String {
+    fun fromListList(list: List<String>): String {
         val gson = Gson()
         return gson.toJson(list)
     }

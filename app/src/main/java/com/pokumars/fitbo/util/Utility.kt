@@ -40,7 +40,6 @@ class BootReceiver: BroadcastReceiver() {
         }
 
         //this is after Boot Alarm. The on start alarm is in TodayViewmodel
-        //TODO What it should do when alarm runs is in the class StepsCheckAlarmReceiver in Utility file
         val oneDayInMilliS = 24L*60 *60 *1000
         alarmManager?.setRepeating(
                 AlarmManager.RTC_WAKEUP,
@@ -49,35 +48,18 @@ class BootReceiver: BroadcastReceiver() {
                 alarmPendingIntent
         )
 
-        /*var twoMinutes = 2L * 60 *1000 *1000
-        alarmManager?.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            twoMinutes,
-            alarmPendingIntent
-        )*/
     }
 }
 
 class StepsCheckAlarmReceiver: BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        val currentTime = System.currentTimeMillis()
-
         val preferencesHelper = SharedPreferencesHelper(context!!)
         val currentSteps = preferencesHelper.getUniversalStepCount()
 
-        /*fun todayStepCount():Float {
-            return preferencesHelper.getUniversalStepCount()?.minus(preferencesHelper.getMidnighStepCount()!!)!!
-        }
-        //add steps of the day to database
-        StepsMangager.addToStepsArray(todayStepCount())*/
-
         preferencesHelper.setMidnighStepCount(currentSteps ?: 0f)
 
-
-
-        Toast.makeText(context, "setting alarm in inStepsCheckAlarmReceiver", Toast.LENGTH_LONG).show()
+        //Toast.makeText(context, "setting alarm in inStepsCheckAlarmReceiver", Toast.LENGTH_LONG).show()
         Log.i(TAG, "setting alarm in inStepsCheckAlarmReceiver ${Date().toString()}")
         Log.i(TAG, "new midnight step count after selfSetting ------------- ${preferencesHelper.getMidnighStepCount()}")
         println("FITBO Alarm, Alarm, inReceiver println")

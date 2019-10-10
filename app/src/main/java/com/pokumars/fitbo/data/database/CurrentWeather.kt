@@ -3,9 +3,7 @@ package com.pokumars.fitbo.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
-import com.pokumars.fitbo.data.Converter
 
 const val CURRENT_WEATHER_ID =0
 @Entity(tableName = "current_weather")

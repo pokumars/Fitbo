@@ -31,18 +31,13 @@ class EndExerciseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        /*distanceResultTV.text = resources.getString(R.string.km, String.format("%.2f",distanceTravelled))
-        caloriesResultTV.text = resources.getString(R.string.kcal_burnt, String.format("%.2f",calories))
-        stepsResultTV.text= resources.getString(R.string.steps, String.format("%.2f",stepsRun))*/
-
         distanceResultTV.text = resources.getString(R.string.km, distanceTravelled)
         caloriesResultTV.text = resources.getString(R.string.calories, calories)
         stepsResultTV.text= resources.getString(R.string.steps, stepsRun)
         timeResultTV.text = timeExercised
     }
 
-fun setValuesFromArgs(){
+private fun setValuesFromArgs(){
     val args = EndExerciseFragmentArgs.fromBundle(arguments!!)
     calories = args.numKCal
     distanceTravelled= args.numKilometres
