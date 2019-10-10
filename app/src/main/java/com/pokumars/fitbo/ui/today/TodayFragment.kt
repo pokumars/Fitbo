@@ -41,9 +41,9 @@ class TodayFragment : Fragment(),SensorEventListener {
     override fun onSensorChanged(event: SensorEvent) {
 
         val stepsValue =event.values[0]
-        StepsMangager.addToStepsArray(todayViewModel.todayStepCount()       )
+        StepsMangager.addToStepsArray(todayViewModel.todayStepCount())
        if(event.sensor == steps){
-           var stepCountString= String.format("%.0f",todayViewModel.todayStepCount())
+           var stepCountString= todayViewModel.todayStepCount().toInt()
            //Log.i(TAG, "steps in TodayFrag ------> $stepsValue steps in ")
 
 
@@ -55,6 +55,10 @@ class TodayFragment : Fragment(),SensorEventListener {
                view.findNavController().navigate(TodayFragmentDirections.actionNavigationHomeToNavigationHistory())
 
            }*/
+           val progressBar = progress_bar
+           val targetStep =100
+
+           progressBar.progress = (todayViewModel.todayStepCount()/targetStep) * 100
        }
     }
 
@@ -103,8 +107,7 @@ class TodayFragment : Fragment(),SensorEventListener {
 
         val root = inflater.inflate(R.layout.fragment_today, container, false)
         //val textView: TextView = root.findViewById(R.id.text_today)
-        val progressBar = root.findViewById<CircularProgressBar>(R.id.progress_bar)
-        progressBar.progress = 100f
+
         todayViewModel.text.observe(this, Observer {
             //textView.text = it
         })

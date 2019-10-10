@@ -36,7 +36,7 @@ class HistoryFragment : Fragment() {
             ViewModelProviders.of(this).get(HistoryViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_history, container, false)
         val textView: TextView = root.findViewById(R.id.text_notifications)
-        val time = Calendar.getInstance().get(Calendar.MINUTE)
+        val time = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         Log.d("TIME","$time")
         val timePoints = IntArray(StepsMangager.stepsArray.size){it}
         val dataPoints = Array(StepsMangager.stepsArray.size, {DataPoint(time.toDouble(), StepsMangager.stepsArray[it].toDouble())})
@@ -44,6 +44,7 @@ class HistoryFragment : Fragment() {
         root.graph.addSeries(bGraph)
         root.graph.gridLabelRenderer.verticalAxisTitle ="Steps"
         root.graph.gridLabelRenderer.horizontalAxisTitle ="Time"
+        root.graph.scrollX
 
 
 

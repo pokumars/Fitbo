@@ -67,7 +67,15 @@ class StepsCheckAlarmReceiver: BroadcastReceiver() {
         val preferencesHelper = SharedPreferencesHelper(context!!)
         val currentSteps = preferencesHelper.getUniversalStepCount()
 
+        /*fun todayStepCount():Float {
+            return preferencesHelper.getUniversalStepCount()?.minus(preferencesHelper.getMidnighStepCount()!!)!!
+        }
+        //add steps of the day to database
+        StepsMangager.addToStepsArray(todayStepCount())*/
+
         preferencesHelper.setMidnighStepCount(currentSteps ?: 0f)
+
+
 
         Toast.makeText(context, "setting alarm in inStepsCheckAlarmReceiver", Toast.LENGTH_LONG).show()
         Log.i(TAG, "setting alarm in inStepsCheckAlarmReceiver ${Date().toString()}")

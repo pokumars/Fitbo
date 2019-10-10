@@ -46,7 +46,6 @@
                 android:layout_marginBottom="8dp"
                 android:elevation="@dimen/card_margin"
                 android:text="@string/start"
-                android:textSize="18sp"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -123,7 +122,11 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.budiyev.android.circularprogressbar.CircularProgressBar
                     android:id="@+id/progress_bar"
@@ -133,8 +136,10 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
+                    android:background="@drawable/circular_shape"
                     app:animateProgress="true"
-                    app:backgroundStrokeColor="@color/colorPrimary"
+
+                    app:backgroundStrokeColor="@color/colorPrimaryDark"
                     app:backgroundStrokeWidth="2dp"
                     app:drawBackgroundStroke="false"
                     app:foregroundStrokeCap="butt"
@@ -146,15 +151,18 @@
                     app:indeterminateSweepAnimationDuration="600"
                     app:maximum="100"
                     app:progress="50"
+
                     app:progressAnimationDuration="100"
                     app:startAngle="270" />
+
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
                     android:layout_margin="16dp"
+
+                    android:gravity="bottom"
                     android:text="@string/steps_today_no_number"
                     android:textSize="28sp" />
 

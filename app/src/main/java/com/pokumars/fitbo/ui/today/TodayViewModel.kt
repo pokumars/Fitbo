@@ -108,12 +108,12 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
             }
             val oneDayInMillis =(24L * 60 * 60 *1000)
             //val anHour = (60L * 60 *1000)
-            //val twoMinutes =(2L*60* 1000)
+            val twoMinutes =(1L*60* 1000)
             //val tenMinutes =(10L*60* 1000)
             alarmManager?.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,
-                oneDayInMillis,
+                twoMinutes,
                 alarmPendingIntent
             )
 

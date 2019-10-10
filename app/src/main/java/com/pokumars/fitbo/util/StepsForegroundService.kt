@@ -121,8 +121,8 @@ class StepsForegroundService:SensorEventListener, Service() {
             }
 
 
-            var todayStepCount = (preferencesHelper.getUniversalStepCount()?.minus(preferencesHelper.getMidnighStepCount()!!))
-            var stepCountString= resources.getString(com.pokumars.fitbo.R.string.steps, String.format("%.0f",todayStepCount))
+            val todayStepCount = (preferencesHelper.getUniversalStepCount()?.minus(preferencesHelper.getMidnighStepCount()!!))
+            val stepCountString= resources.getString(com.pokumars.fitbo.R.string.steps, String.format("%.0f",todayStepCount))
 
             //test to see if this really only changes at midnight.
             Log.i(TAG,"step counter midnight value -------------------> ${preferencesHelper.getMidnighStepCount() ?: -1}")
