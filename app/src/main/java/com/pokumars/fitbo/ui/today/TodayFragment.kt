@@ -10,11 +10,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.budiyev.android.circularprogressbar.CircularProgressBar
 import com.pokumars.fitbo.R
 import com.pokumars.fitbo.ui.TAG
 import com.pokumars.fitbo.ui.suggestion.SuggestionFragment
@@ -49,10 +51,10 @@ class TodayFragment : Fragment(),SensorEventListener {
            updateValues()
            //text_today.text = "Steps\n\n ${stepCountString}"
            stepsNumberTextView.text = "$stepCountString"
-           stepsNumberTextView.setOnClickListener {view->
+          /* stepsNumberTextView.setOnClickListener {view->
                view.findNavController().navigate(TodayFragmentDirections.actionNavigationHomeToNavigationHistory())
 
-           }
+           }*/
        }
     }
 
@@ -101,6 +103,8 @@ class TodayFragment : Fragment(),SensorEventListener {
 
         val root = inflater.inflate(R.layout.fragment_today, container, false)
         //val textView: TextView = root.findViewById(R.id.text_today)
+        val progressBar = root.findViewById<CircularProgressBar>(R.id.progress_bar)
+        progressBar.progress = 100f
         todayViewModel.text.observe(this, Observer {
             //textView.text = it
         })

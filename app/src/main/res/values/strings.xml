@@ -17,7 +17,7 @@
 
 
     <string name="steps_today">%1$d steps today</string>
-    <string name="steps_today_no_number">steps\n today</string>
+    <string name="steps_today_no_number">steps</string>
     <string name="steps">%1$s steps</string>
 
     <string name="kcal">%1$s kcal</string>
