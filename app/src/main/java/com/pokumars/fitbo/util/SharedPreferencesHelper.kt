@@ -19,6 +19,12 @@ class SharedPreferencesHelper {
         private const val EXERCISE_START_STEPS = "exercise start steps"
         private const val USER_WEIGHT= "user weight"
         private const val ISEXERCISING = "is exercising"
+        private const val IS_RUNNING= "is running"
+        private const val IS_WALKING="is walking"
+        private const val IS_TIMER_ON = "is timer on"
+        private const val STOP_TIME= "stop time"
+        private const val DAILY_STEP_TARGET = "daily step target"
+
         private var prefs: SharedPreferences? = null
 
         @Volatile private var instance: SharedPreferencesHelper? = null
@@ -40,6 +46,14 @@ class SharedPreferencesHelper {
         }
 
     }
+
+    //Daily step target
+    fun setStepTarget(stepTarget: Float){
+        prefs?.edit(commit = true){
+            putFloat(DAILY_STEP_TARGET, stepTarget)
+        }
+    }
+    fun getStepTarget() = prefs?.getFloat(DAILY_STEP_TARGET,10000f)
 
     fun setIsExercising(value: Boolean){
         prefs?.edit(commit = true){
@@ -95,4 +109,37 @@ class SharedPreferencesHelper {
     }
     //get steps at start of Exercise
     fun getExerciseStartStepCount() = prefs?.getFloat(EXERCISE_START_STEPS, -1f)
+
+    fun setIsRunning(yesNo: Boolean){
+        prefs?.edit(commit = true){
+            putBoolean(IS_RUNNING, yesNo)
+        }
+    }
+
+    fun getIsRunning() = prefs?.getBoolean(IS_RUNNING, false)
+
+    fun setIsWalking(yesNo: Boolean){
+        prefs?.edit(commit = true){
+            putBoolean(IS_WALKING, yesNo)
+        }
+    }
+
+    fun getIsWalking() = prefs?.getBoolean(IS_WALKING, false)
+
+    fun setIsTimerOn(yesNo: Boolean){
+        prefs?.edit(commit = true){
+            putBoolean(IS_TIMER_ON, yesNo)
+        }
+    }
+    fun getIsTimerOn() = prefs?.getBoolean(IS_TIMER_ON, false)
+
+    fun setStopTime(millisec: Long){
+        prefs?.edit(commit = true){
+            putLong(STOP_TIME, millisec)
+        }
+    }
+    fun getStopTime() = prefs?.getLong(STOP_TIME, 0L)
+
+
+
 }

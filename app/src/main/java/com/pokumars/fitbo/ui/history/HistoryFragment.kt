@@ -13,6 +13,8 @@ import com.jjoe64.graphview.series.BarGraphSeries
 import com.pokumars.fitbo.R
 import com.pokumars.fitbo.util.StepsMangager
 import com.jjoe64.graphview.series.DataPoint
+import kotlinx.android.synthetic.main.fragment_end_exercise.*
+import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.android.synthetic.main.fragment_history.view.*
 import java.util.*
 
@@ -34,11 +36,12 @@ class HistoryFragment : Fragment() {
        // graph.viewport.isXAxisBoundsManual = true
         historyViewModel =
             ViewModelProviders.of(this).get(HistoryViewModel::class.java)
+
         val root = inflater.inflate(R.layout.fragment_history, container, false)
         val textView: TextView = root.findViewById(R.id.text_notifications)
         val time = Calendar.getInstance().get(Calendar.MINUTE)
         Log.d("TIME","$time")
-        val timePoints = IntArray(StepsMangager.stepsArray.size){it}
+        //val timePoints = IntArray(StepsMangager.stepsArray.size){it}
         val dataPoints = Array(StepsMangager.stepsArray.size, {DataPoint(time.toDouble(), StepsMangager.stepsArray[it].toDouble())})
         val bGraph= BarGraphSeries<DataPoint>(dataPoints)
         root.graph.addSeries(bGraph)
@@ -52,5 +55,13 @@ class HistoryFragment : Fragment() {
         })
         root.graph.addSeries(bGraph)
         return root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        distanceHistoryTextView.text= resources.getString(R.string.distance_covered, String.format("%.2f", historyViewModel.distanceTravelled))
+        caloriesHistoryTextView.text = resources.getString(R.string.calories, String.format("%.1f", historyViewModel.calories))
+        stepsHistoryTextView.text =resources.getString(R.string.steps, String.format("%.0f", historyViewModel.universalStepCount()))
     }
 }

@@ -36,10 +36,6 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
     var calories: Float =  (distanceTravelled * bodyMass)
 
 
-
-
-
-
     var alarmManager: AlarmManager? = null
     private lateinit var alarmPendingIntent: PendingIntent
     private var appUsedBefore: Boolean = false
@@ -77,8 +73,12 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
         preferencesHelper.setAppFirstUse()
     }
 
-    fun setWeight(){
+    fun setWeightToEighty(){
         preferencesHelper.setWeight(80f)
+    }
+
+    fun setDefaultStepsTarget(){
+        preferencesHelper.setStepTarget(3000f)
     }
 
     fun createAlarmManager(){
@@ -91,14 +91,20 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
         if(!appUsedBefore){
             preferencesHelper.setMidnighStepCount(preferencesHelper.getUniversalStepCount()!!)
 
+            setWeightToEighty()
+            setDefaultStepsTarget()
+
             Toast.makeText(getApplication(), "virgin app. setting Alarm", Toast.LENGTH_LONG).show()
             Log.i(TAG, "virgin app. setting Alarm")
 
             // Set the alarm to start at approximately 00:00 p.m as specified in calendar.
             val calendar : Calendar = Calendar.getInstance().apply {
                 timeInMillis = System.currentTimeMillis()
-                set(Calendar.HOUR_OF_DAY, 23)
-                set(Calendar.MINUTE, 59)
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.AM_PM, Calendar.AM)
+
                 //TODO dont forget to change hour back to midnight
             }
 

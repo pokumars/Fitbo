@@ -16,27 +16,32 @@ class RunViewModel(application: Application) : BaseViewModel(application) {
     var distanceTravelled: Float = (distanceInMetres/1000)
     val bodyMass:Float = preferencesHelper.getWeight()!!
 
-    fun exerciseStartSteps()= preferencesHelper.getExerciseStartStepCount()
-
     fun universalSteps() = preferencesHelper.getUniversalStepCount()
 
+    fun exerciseStartSteps()= preferencesHelper.getExerciseStartStepCount()
     fun setStartingStepCount(){
 
-        var currentSteps = preferencesHelper.getUniversalStepCount()
+        val currentSteps = preferencesHelper.getUniversalStepCount()
         preferencesHelper.setExerciseStartStepCount(currentSteps ?: 0f)
         Log.i(TAG, "UniversalStepCount --> ${preferencesHelper.getUniversalStepCount()} setExerciseStartStepCount --> ${preferencesHelper.getExerciseStartStepCount()}")
     }
+
 
     fun setIsExercising(trueOrFalse:Boolean){
         preferencesHelper.setIsExercising(trueOrFalse)
     }
 
+    var calories: Float =  (distanceTravelled * bodyMass)
 
-    fun getStartingStepCount()= preferencesHelper.getExerciseStartStepCount()
+    fun getIsTimerOn() = preferencesHelper.getIsTimerOn()
+    fun setIsTimerOn(yesNo: Boolean){
+        preferencesHelper.setIsTimerOn(yesNo)
+    }
 
-
-
-    var calories: Float =  (distanceTravelled * bodyMass!!)
+    fun getStopTime() = preferencesHelper.getStopTime()
+    fun setStopTime(time: Long){
+        preferencesHelper.setStopTime(time)
+    }
 
 
 
