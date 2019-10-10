@@ -97,7 +97,7 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
             // Set the alarm to start at approximately 00:00 p.m as specified in calendar.
             val calendar : Calendar = Calendar.getInstance().apply {
                 timeInMillis = System.currentTimeMillis()
-                set(Calendar.HOUR_OF_DAY, 11)
+                set(Calendar.HOUR_OF_DAY, 23)
                 set(Calendar.MINUTE, 59)
                 //TODO dont forget to change hour back to midnight
             }
@@ -106,13 +106,14 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
             alarmPendingIntent = Intent(context, StepsCheckAlarmReceiver::class.java).let { intent ->
                 PendingIntent.getBroadcast(context, 0, intent, 0)
             }
-            //val oneDayInMillis =(24L * 60 * 60 *1000)
-            val anHour = (60L * 60 *1000)
+            val oneDayInMillis =(24L * 60 * 60 *1000)
+            //val anHour = (60L * 60 *1000)
             //val twoMinutes =(2L*60* 1000)
+            //val tenMinutes =(10L*60* 1000)
             alarmManager?.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,
-                anHour,
+                oneDayInMillis,
                 alarmPendingIntent
             )
 

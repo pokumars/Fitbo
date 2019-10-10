@@ -22,9 +22,7 @@ import com.pokumars.fitbo.ui.TAG
 import kotlinx.android.synthetic.main.fragment_run.*
 import java.util.concurrent.TimeUnit
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class RunFragment : Fragment(),SensorEventListener {
     //StepCounter
     private lateinit var sensorManager: SensorManager
@@ -142,7 +140,7 @@ class RunFragment : Fragment(),SensorEventListener {
 
     fun displayValues(){
 
-        runDistanceTextView.setText(resources.getString(R.string.km, String.format("%.0f",runViewModel.distanceTravelled)))
+        runDistanceTextView.setText(resources.getString(R.string.km, String.format("%.2f",runViewModel.distanceTravelled)))
         runCaloriesTextView.setText(resources.getString(R.string.calories, String.format("%.1f",runViewModel.calories)))
         runStepsTV.setText(resources.getString(R.string.steps, String.format("%.0f",runViewModel.stepsRun)))
         //Log.i(TAG, "----- displayValues()----------")
