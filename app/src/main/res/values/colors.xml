@@ -7,4 +7,5 @@
     <color name="testGray">#FFD8D4D4</color>
     <color name="background">#e8eaf6</color>
     <color name="lightPrimary">#8e99f3</color>
+    <color name="gif_background">#000000</color>
 </resources>
