@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_history"
             app:destination="@id/navigation_history" />
+        <action
+            android:id="@+id/action_navigation_home_to_preferencesFragment"
+            app:destination="@id/preferencesFragment2" />
     </fragment>
 
     <fragment
@@ -58,4 +61,9 @@
             android:name="timeExercisedArg"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/preferencesFragment2"
+        android:name="com.pokumars.fitbo.ui.preferences.PreferencesFragment"
+        android:label="fragment_preferences"
+        tools:layout="@layout/fragment_preferences" />
 </navigation>

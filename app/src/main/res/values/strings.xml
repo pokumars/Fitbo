@@ -6,14 +6,16 @@
     <string name="title_results">Results</string>
     <string name="title_exercise">Exercise</string>
 
-
-
+    <string name="my_preferences">My Preferences</string>
     <string name="start">Start</string>
     <string name="walk">Walk</string>
     <string name="run">Run</string>
     <string name="stop">Stop</string>
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
+    <string name="update_weight">Update weight</string>
+    <string name="update_steps_target">Update target</string>
+    <string name="set_daily_step_target">set daily step target</string>
 
 
     <string name="steps_today">%1$d steps today</string>
@@ -57,7 +59,6 @@
 
     <string name="daily_graph_content_description">Daily activity graph</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loading">loading..</string>
     <string name="weather_icon">Weather Icon</string>
@@ -72,6 +73,16 @@
     <string name="feels_like">"It feels like %1$s  °C"</string>
 
 
+    <!--History page -->
+    <string name="stats_since_boot"> Stats since you last \n switched on your phone</string>
+
+    <!-- Toast -->
+    <string name="cannot_exit_run">Cannot exit. Exercise in progress.</string>
+    <string name="set_correct_weight">Weight not set. Set weight between 20 and 200kg</string>
+    <string name="weight_set">Weight changed to %1$s</string>
+
+    <string name="set_correct_target">Steps not set. set steps above 100</string>
+    <string name="daily_target_set">daily target changed to %1$s</string>
 
 
 </resources>

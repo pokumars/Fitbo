@@ -72,19 +72,13 @@ class StepsForegroundService:SensorEventListener, Service() {
         val serviceIntent = Intent(this, StepsForegroundService::class.java)
         serviceIntent.putExtra(FOREGROUND_STEPS, stepCount)
 
-        ContextCompat.startForegroundService(this, serviceIntent);
+        ContextCompat.startForegroundService(this, serviceIntent)
     }
 
     fun registerStepCounter(){
         sm = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         stepCounter = sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
-        if (sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)  != null){
-
-            //Log.i(TAG, "Step counter really exists  ------------------  Step counter really exists ---------------")
-            //println(" println -->Step counter really exists  Step counter really exists")
-
-        }
 
         stepCounter?.also {
             sm.registerListener(this, it,
@@ -103,10 +97,13 @@ class StepsForegroundService:SensorEventListener, Service() {
 
         if (p0?.sensor == stepCounter){
             Log.i(TAG,"step counter value -------------------> ${p0?.values?.get(0) ?: -1}")
-            //println("step counter value -------------------> ${p0?.values?.get(0) ?: -1}")
+
             stepCount = p0?.values?.get(0)
 
             preferencesHelper.setUniversalStepCount(stepCount!!)
+
+            //make exerciseStartStepCount same as globalStepCount except when we are actually exercising.
+            //in which case it should remain at the value of when we started exercising so we can subtract that to get the steps.
             if(!preferencesHelper.getIsExercising()!!){
                 preferencesHelper.setExerciseStartStepCount(stepCount!!)
             }

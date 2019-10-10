@@ -11,11 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.budiyev.android.circularprogressbar.CircularProgressBar
 import com.pokumars.fitbo.R
 import com.pokumars.fitbo.ui.TAG
@@ -39,11 +42,10 @@ class TodayFragment : Fragment(),SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent) {
-
-        val stepsValue =event.values[0]
-        StepsMangager.addToStepsArray(todayViewModel.todayStepCount())
+        //val stepsValue =event.values[0]
+        StepsMangager.addToStepsArray(todayViewModel.todayStepCount()       )
        if(event.sensor == steps){
-           var stepCountString= todayViewModel.todayStepCount().toInt()
+           val stepCountString= String.format("%.0f",todayViewModel.todayStepCount())
            //Log.i(TAG, "steps in TodayFrag ------> $stepsValue steps in ")
 
 
@@ -65,7 +67,7 @@ class TodayFragment : Fragment(),SensorEventListener {
     fun updateValues(){
         todayViewModel.distanceInMetres = todayViewModel.stride * todayViewModel.todayStepCount()
         todayViewModel.distanceTravelled = todayViewModel.distanceInMetres/1000
-        todayViewModel.calories =  (todayViewModel.distanceTravelled * todayViewModel.bodyMass!!)
+        todayViewModel.calories =  (todayViewModel.distanceTravelled * todayViewModel.bodyMass)
         displayValues()
     }
 
@@ -112,8 +114,28 @@ class TodayFragment : Fragment(),SensorEventListener {
             //textView.text = it
         })
 
-        todayViewModel.setWeight()
+
+
+        setHasOptionsMenu(true)
         return root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.options_menu, menu)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        //get item id to handle item clicks
+        val id = item.itemId
+        //handle item clicks
+        if (id == R.id.preferencesFragment){
+            findNavController().navigate(TodayFragmentDirections.actionNavigationHomeToPreferencesFragment())
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -129,12 +151,12 @@ class TodayFragment : Fragment(),SensorEventListener {
         startRunFragmentBtn.setOnClickListener { view:View ->
             view.findNavController().navigate(TodayFragmentDirections.actionNavigationHomeToRunFragment())
         }
+        startWalkBtn.setOnClickListener { view:View ->
+            view.findNavController().navigate(TodayFragmentDirections.actionNavigationHomeToRunFragment())
+        }
 
         super.onViewCreated(view, savedInstanceState)
 
     }
 
-    fun stepsFirstUseSetup(){
-
-    }
 }

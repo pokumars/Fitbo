@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -68,9 +69,28 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+    override fun onBackPressed() {
+        //disable the back button when exercise is ongoing. until exercise ends it cant be interrupted
+        if(preferencesHelper.getIsExercising()!!){
+            //super.onBackPressed()
+            Toast.makeText( this,resources.getString(R.string.cannot_exit_run), Toast.LENGTH_LONG).show()
+        }else{
+            super.onBackPressed()
+        }
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp()
+
+
+        //disable the up button when exercise is ongoing
+        if(preferencesHelper.getIsExercising()!!){
+            Toast.makeText( this,resources.getString(R.string.cannot_exit_run), Toast.LENGTH_LONG).show()
+            return false
+        }else{
+            return navController.navigateUp()
+        }
     }
 
     fun startStepCounterForegroundService(){
