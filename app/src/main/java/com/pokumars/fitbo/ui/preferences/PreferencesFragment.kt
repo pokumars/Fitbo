@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 
 import com.pokumars.fitbo.R
@@ -33,13 +34,15 @@ class PreferencesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         updateWeightBtn.setOnClickListener { updateWeight() }
         updateStepsTargetBtn.setOnClickListener { updateStepsTarget() }
     }
 
-    fun updateWeight(){
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        (activity as? AppCompatActivity)?.supportActionBar?.title="Preference"
+    }
+    private fun updateWeight(){
         val userWeight =  userWeightET.text.toString()
         if(userWeight.trim().length > 1&& Integer.parseInt(userWeight)> 20 && Integer.parseInt(userWeight)< 200 ){
 
@@ -54,7 +57,7 @@ class PreferencesFragment : Fragment() {
         }
     }
 
-    fun updateStepsTarget(){
+    private fun updateStepsTarget(){
         val stepTarget = stepTargetET.text.toString()
 
         if(stepTarget.trim().length > 2&& Integer.parseInt(stepTarget)> 100){
