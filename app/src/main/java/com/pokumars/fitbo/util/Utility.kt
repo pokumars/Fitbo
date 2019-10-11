@@ -41,7 +41,7 @@ class BootReceiver: BroadcastReceiver() {
 
         //this is after Boot Alarm. The on start alarm is in TodayViewmodel
         val oneDayInMilliS = 24L*60 *60 *1000
-        alarmManager?.setRepeating(
+        alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,
                 oneDayInMilliS,
