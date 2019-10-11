@@ -39,7 +39,7 @@ class PreferencesFragment : Fragment() {
         updateStepsTargetBtn.setOnClickListener { updateStepsTarget() }
     }
 
-    fun updateWeight(){
+    private fun updateWeight(){
         val userWeight =  userWeightET.text.toString()
         if(userWeight.trim().length > 1&& Integer.parseInt(userWeight)> 20 && Integer.parseInt(userWeight)< 200 ){
 
@@ -54,7 +54,7 @@ class PreferencesFragment : Fragment() {
         }
     }
 
-    fun updateStepsTarget(){
+    private fun updateStepsTarget(){
         val stepTarget = stepTargetET.text.toString()
 
         if(stepTarget.trim().length > 2&& Integer.parseInt(stepTarget)> 100){

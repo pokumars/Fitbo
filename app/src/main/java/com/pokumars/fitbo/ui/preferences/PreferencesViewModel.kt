@@ -1,7 +1,6 @@
 package com.pokumars.fitbo.ui.preferences
 
 import android.app.Application
-import androidx.lifecycle.ViewModel
 import com.pokumars.fitbo.BaseViewModel
 import com.pokumars.fitbo.util.SharedPreferencesHelper
 
