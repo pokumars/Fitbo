@@ -36,7 +36,7 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
     var calories: Float =  (distanceTravelled * bodyMass)
 
 
-    var alarmManager: AlarmManager? = null
+    private var alarmManager: AlarmManager? = null
     private lateinit var alarmPendingIntent: PendingIntent
     private var appUsedBefore: Boolean = false
 
@@ -73,11 +73,11 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
         preferencesHelper.setAppFirstUse()
     }
 
-    fun setWeightToEighty(){
+    private fun setWeightToEighty(){
         preferencesHelper.setWeight(80f)
     }
 
-    fun setDefaultStepsTarget(){
+    private fun setDefaultStepsTarget(){
         preferencesHelper.setStepTarget(3000f)
     }
 
@@ -101,11 +101,10 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
             val calendar : Calendar = Calendar.getInstance().apply {
                 timeInMillis = System.currentTimeMillis()
                 set(Calendar.HOUR_OF_DAY, 0)
-                set(Calendar.MINUTE, 0)
+                set(Calendar.MINUTE, 31)
                 set(Calendar.SECOND, 0)
                 set(Calendar.AM_PM, Calendar.AM)
 
-                //TODO dont forget to change hour back to midnight
             }
 
             alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -114,22 +113,14 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
             }
             val oneDayInMillis =(24L * 60 * 60 *1000)
             //val anHour = (60L * 60 *1000)
-            val twoMinutes =(1L*60* 1000)
+            //val twoMinutes =(2L*60* 1000)
             //val tenMinutes =(10L*60* 1000)
             alarmManager?.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,
-                twoMinutes,
+                oneDayInMillis,
                 alarmPendingIntent
             )
-
-            //TODO What it should do when alarm runs is in the class StepsCheckAlarmReceiver in Utility file
-            /*alarmManager?.setRepeating(
-                AlarmManager.RTC_WAKEUP,
-                calendar.timeInMillis,
-                AlarmManager.INTERVAL_DAY,
-                alarmPendingIntent
-            )*/
 
         }
     }

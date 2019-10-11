@@ -39,22 +39,7 @@
     <string name="today_page_km"> %1$s \nkm</string>
 
 
-    <string name="weather_today">%1$s weather today</string>
-    <string name="temperature">%1$d °C</string>
-    <string name="our_suggestion"> Suggestions For Today</string>
-    <string name="cold_exercise_suggestions">It is cold in %1$s. Here are some exercises we could suggest \n
-    - %2$s \n
-    - %3$s \n
-    - %4$s \n
-    - %5$s \n
-    - %6$s</string>
 
-    <string name="warm_exercise_suggestions">It is cold in %1$s. Here are some exercises we could suggest \n
-    - %2$s \n
-    - %3$s \n
-    - %4$s \n
-    - %5$s \n
-    - %6$s</string>
     <string name="step_count">Steps Count</string>
 
     <string name="daily_graph_content_description">Daily activity graph</string>
@@ -84,5 +69,49 @@
     <string name="set_correct_target">Steps not set. set steps above 100</string>
     <string name="daily_target_set">daily target changed to %1$s</string>
 
+    <!-- Weather suggestions -->
+    <string name="weather_today">%1$s weather today</string>
+    <string name="our_suggestion"> Suggestions For Today</string>
+    <string name="cold_exercise_suggestions">It is cold in %1$s. Here are some exercises we could suggest \n
+    - %2$s \n
+    - %3$s \n
+    - %4$s \n
+    - %5$s \n
+    - %6$s</string>
+
+    <string name="warm_exercise_suggestions">It is cold in %1$s. Here are some exercises we could suggest \n
+    - %2$s \n
+    - %3$s \n
+    - %4$s \n
+    - %5$s \n
+    - %6$s</string>
+
+    <string name="vantaa">Vantaa</string>
+    <string name="temperature">%1$s °C</string>
+    <string name="wind">Wind: %1$s m/s %2$s</string>
+    <string name="visibility">Visibility: %1$s km</string>
+
+
+    <!--Exercises-->
+    <!--Rainy-->
+    <string name="go_swimming">Go swimming</string>
+    <string name="do_gym">Do some exercise in the gym</string>
+    <string name="enjoy_badminton">enjoy indoor badminton</string>
+    <string name="dance_lesson">"Go for dance lesson"</string>
+    <string name="indoor_sports">"Take part in indoor sport activities"</string>
+
+    <!--snow-->
+    <string name="indoor_football">You can enjoy indoor football</string>
+    <string name="wall_climbing">Go for wall climbing</string>
+    <string name="table_tennis">you can play table tennis</string>
+
+
+    <!--summer-->
+    <string name="outdoor_football">You can enjoy outdoor football</string>
+    <string name="outdoor_swim">Go for outdoor swimming</string>
+    <string name="forest_run">Go for running in the forest</string>
+    <string name="beach_football">You can go to beach football</string>
+
+    <!--<string name=""></string>-->
 
 </resources>
