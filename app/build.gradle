@@ -104,4 +104,5 @@ dependencies {
     implementation 'com.budiyev.android:circular-progress-bar:1.2.2'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.1.17'
     implementation 'net.steamcrafted:materialiconlib:1.1.5'
+    implementation 'com.android.support:cardview-v7:28.0.0'
 }
