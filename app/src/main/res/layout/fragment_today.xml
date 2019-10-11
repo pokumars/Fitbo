@@ -169,7 +169,7 @@
                     app:progress="50"
 
                             app:progressAnimationDuration="100"
-                            app:startAngle="0" />
+                            app:startAngle="90" />
 
 
                         <TextView
