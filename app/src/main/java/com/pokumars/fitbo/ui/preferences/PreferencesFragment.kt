@@ -34,6 +34,8 @@ class PreferencesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         updateWeightBtn.setOnClickListener { updateWeight() }
         updateStepsTargetBtn.setOnClickListener { updateStepsTarget() }
     }

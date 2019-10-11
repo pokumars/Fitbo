@@ -52,24 +52,30 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
         currentWeather.observe(this@SuggestionFragment, Observer {
             if(it==null) return@Observer
             Log.d("feels----","${it.feelslike}")
+
             val rainDay = arrayOf(
-                "Go for swimming",
-                "Do some exercise in the gym",
-                "enjoy indoor badminton",
-                "Go for dance lesson",
-                "Take part in indoor sport activities")
+                resources.getString(R.string.go_swimming),
+                resources.getString(R.string.do_gym),
+                resources.getString(R.string.enjoy_badminton),
+                resources.getString(R.string.dance_lesson),
+                resources.getString(R.string.indoor_sports))
             val snow = arrayOf(
-                "You can enjoy indoor football",
-                "Go for wall climbing",
-                "you can play table tennis",
-                "Go for dance lesson",
-                "Go for gym exercise"
+                resources.getString(R.string.indoor_football),
+                resources.getString(R.string.wall_climbing),
+                resources.getString(R.string.table_tennis),
+                resources.getString(R.string.dance_lesson),
+                resources.getString(R.string.do_gym)
                 )
-            val summer = arrayOf(
+            /*val summer = arrayOf(
                 "You can enjoy outdoor football",
                 "Go for outdoor swimming",
                 "Go for running in the forest",
-                "You can go to beach football")
+                "You can go to beach football")*/
+            val summer = arrayOf(
+                resources.getString(R.string.outdoor_football),
+                resources.getString(R.string.outdoor_swim),
+                resources.getString(R.string.forest_run),
+                resources.getString(R.string.beach_football))
             if(it.temperature in 0..20 || it.weatherDescriptions.toString()=="rainy"){
                 listCondition(rainDay)
             }
@@ -80,16 +86,16 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
                 listCondition(summer)
             }
 
-            updateLocation("Vantaa")
+            updateLocation(resources.getString(R.string.vantaa))
             updateDateToToday()
             group_loading.visibility =View.GONE
-            textView_temperature.text ="${it.temperature}°C"
+            textView_temperature.text =resources.getString(R.string.temperature, it.temperature.toString())
             textView_feels_like_temperature.text =resources.getString(R.string.feels_like, it.feelslike.toString())
-            textView_wind.text ="Wind: ${it.windSpeed} m/s ${it.windDir}"
-            textView_visibility.text ="Visibility: ${it.visibility} km"
+            textView_wind.text =resources.getString(R.string.wind, it.windSpeed.toString(), it.windDir)
+            textView_visibility.text =resources.getString(R.string.visibility, it.visibility.toString())
             textView_condition.text =it.weatherDescriptions[0]
             GlideApp.with(this@SuggestionFragment)
-                .load("${it.weatherIcons[0]}")
+                .load(it.weatherIcons[0])
                 .into(imageView_condition_icon)
         })
     }
@@ -97,7 +103,7 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
         (activity as? AppCompatActivity)?.supportActionBar?.title =location
     }
     private fun updateDateToToday() {
-        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
+        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = resources.getString(R.string.title_today)
 
     }
 
