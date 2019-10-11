@@ -49,23 +49,22 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <Button
-                        android:id="@+id/startRunFragmentBtn"
-                        android:layout_width="131dp"
-                        android:layout_height="63dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginBottom="8dp"
-                        android:elevation="@dimen/card_margin"
-                        android:text="@string/start"
-                        android:textSize="24sp"
-                        android:textStyle="italic"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+            <Button
+                android:id="@+id/startRunFragmentBtn"
+                android:layout_width="131dp"
+                android:layout_height="63dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:elevation="@dimen/card_margin"
+                android:text="@string/run"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView7"
@@ -100,20 +99,20 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <Button
-                        android:id="@+id/startWalkBtn"
-                        android:layout_width="125dp"
-                        android:layout_height="62dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginBottom="8dp"
-                        android:elevation="@dimen/card_margin"
-                        android:text="@string/start"
-                        android:textSize="24sp"
-                        android:textStyle="italic"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/startWalkBtn"
+                android:layout_width="125dp"
+                android:layout_height="62dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:elevation="@dimen/card_margin"
+                android:text="@string/walk"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -145,32 +144,32 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <com.budiyev.android.circularprogressbar.CircularProgressBar
-                            android:id="@+id/progress_bar"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="16dp"
-                            android:background="@drawable/circular_shape"
-                            app:animateProgress="true"
-
-                            app:backgroundStrokeColor="@color/colorPrimaryDark"
-                            app:backgroundStrokeWidth="2dp"
-                            app:drawBackgroundStroke="false"
-                            app:foregroundStrokeCap="butt"
-                            app:foregroundStrokeColor="@color/colorPrimary"
-                            app:foregroundStrokeWidth="16dp"
-                            app:indeterminate="false"
-                            app:indeterminateMinimumAngle="45"
-                            app:indeterminateRotationAnimationDuration="1200"
-                            app:indeterminateSweepAnimationDuration="600"
-                            app:maximum="100"
-                            app:progress="50"
+                <com.budiyev.android.circularprogressbar.CircularProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/circular_shape"
+                    app:animateProgress="true"
+                    android:contentDescription="@string/step_target_graph_content_description"
+                    app:backgroundStrokeColor="@color/colorPrimaryDark"
+                    app:backgroundStrokeWidth="2dp"
+                    app:drawBackgroundStroke="false"
+                    app:foregroundStrokeCap="butt"
+                    app:foregroundStrokeColor="@color/colorPrimary"
+                    app:foregroundStrokeWidth="16dp"
+                    app:indeterminate="false"
+                    app:indeterminateMinimumAngle="45"
+                    app:indeterminateRotationAnimationDuration="1200"
+                    app:indeterminateSweepAnimationDuration="600"
+                    app:maximum="100"
+                    app:progress="50"
 
                             app:progressAnimationDuration="100"
-                            app:startAngle="270" />
+                            app:startAngle="0" />
 
 
                         <TextView

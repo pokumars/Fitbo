@@ -28,6 +28,7 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
     fun todayStepCount():Float {
         return preferencesHelper.getUniversalStepCount()?.minus(preferencesHelper.getMidnighStepCount()!!)!!
     }
+
     var distanceInMetres: Float = stride * todayStepCount() //in metres
     var distanceTravelled: Float = (distanceInMetres/1000)
     val bodyMass:Float = preferencesHelper.getWeight()!!
@@ -100,22 +101,27 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
             val calendar : Calendar = Calendar.getInstance().apply {
                 timeInMillis = System.currentTimeMillis()
                 set(Calendar.HOUR_OF_DAY, 0)
-                set(Calendar.MINUTE, 0)
+                set(Calendar.MINUTE, 1)
                 set(Calendar.SECOND, 0)
                 set(Calendar.AM_PM, Calendar.AM)
+
             }
 
             alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             alarmPendingIntent = Intent(context, StepsCheckAlarmReceiver::class.java).let { intent ->
                 PendingIntent.getBroadcast(context, 0, intent, 0)
             }
-            val twoMinutes =(1L*60* 1000)
+            val oneDayInMillis =(24L * 60 * 60 *1000)
+            //val anHour = (60L * 60 *1000)
+            //val twoMinutes =(2L*60* 1000)
+            //val tenMinutes =(10L*60* 1000)
             alarmManager?.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,
-                twoMinutes,
+                oneDayInMillis,
                 alarmPendingIntent
             )
+
         }
     }
 

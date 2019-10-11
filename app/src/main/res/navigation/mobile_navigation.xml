@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.pokumars.fitbo.ui.today.TodayFragment"
-        android:label="@string/title_today"
-        tools:layout="@layout/fragment_today" >
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_today">
         <action
             android:id="@+id/action_navigation_home_to_runFragment"
             app:destination="@id/runFragment" />
@@ -24,13 +24,13 @@
     <fragment
         android:id="@+id/navigation_suggestion"
         android:name="com.pokumars.fitbo.ui.suggestion.SuggestionFragment"
-        android:label="@string/title_suggestion"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_suggestion" />
 
     <fragment
         android:id="@+id/navigation_history"
         android:name="com.pokumars.fitbo.ui.history.HistoryFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:label="@string/title_exercise"
