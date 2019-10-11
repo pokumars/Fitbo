@@ -87,7 +87,7 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
             }
 
             updateLocation(resources.getString(R.string.vantaa))
-            updateDateToToday()
+            //updateDateToToday()
             group_loading.visibility =View.GONE
             textView_temperature.text =resources.getString(R.string.temperature, it.temperature.toString())
             textView_feels_like_temperature.text =resources.getString(R.string.feels_like, it.feelslike.toString())
@@ -102,10 +102,10 @@ class SuggestionFragment : ScopedFragment(),KodeinAware{
     private  fun  updateLocation(location: String){
         (activity as? AppCompatActivity)?.supportActionBar?.title =location
     }
-    private fun updateDateToToday() {
+   /* private fun updateDateToToday() {
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle = resources.getString(R.string.title_today)
 
-    }
+    }*/
 
     private fun listCondition(condition:Array<String>){
         rc_view.layoutManager = LinearLayoutManager(context)

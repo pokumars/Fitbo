@@ -8,6 +8,8 @@
 
     <string name="my_preferences">My Preferences</string>
     <string name="start">Start</string>
+    <string name="start_run">Start Run</string>
+    <string name="start_walk">start walk</string>
     <string name="walk">Walk</string>
     <string name="run">Run</string>
     <string name="stop">Stop</string>
@@ -16,6 +18,8 @@
     <string name="update_weight">Update weight</string>
     <string name="update_steps_target">Update target</string>
     <string name="set_daily_step_target">set daily step target</string>
+
+
 
 
     <string name="steps_today">%1$d steps today</string>
@@ -42,7 +46,14 @@
 
     <string name="step_count">Steps Count</string>
 
+    <!--Content description -->
     <string name="daily_graph_content_description">Daily activity graph</string>
+    <string name="running_man_content_description">Gif of a running man</string>
+    <string name="step_target_graph_content_description">daily step target prgress pie chart</string>
+    <string name="weight_kg_et_description">type weight in kilograms</string>
+    <string name="set_daily_step_target_et_description">type daily step target</string>
+
+
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loading">loading..</string>
@@ -69,6 +80,7 @@
     <string name="set_correct_target">Steps not set. set steps above 100</string>
     <string name="daily_target_set">daily target changed to %1$s</string>
     <string name="weight_kg">Weight in kilograms</string>
+
     <string name="weight">Weight</string>
     <string name="daily_target">Set daily target</string>
     <string name="target">daily steps target</string>

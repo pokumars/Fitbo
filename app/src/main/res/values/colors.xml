@@ -8,4 +8,5 @@
     <color name="background">#e8eaf6</color>
     <color name="lightPrimary">#8e99f3</color>
     <color name="gif_background">#000000</color>
+    <color name="full_white">#fff</color>
 </resources>

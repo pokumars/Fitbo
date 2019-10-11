@@ -59,7 +59,7 @@
                     android:fontFamily="sans-serif-condensed-medium"
                     android:text="@string/stats_since_boot"
                     android:textAlignment="center"
-                    android:textColor="@color/background"
+                    android:textColor="@color/full_white"
                     android:textSize="28sp"
                     android:textStyle="bold" />
 
@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:text="@string/steps"
-                    android:textColor="@color/background"
+                    android:textColor="@color/full_white"
                     android:textSize="28sp" />
 
                 <TextView
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:text="@string/distance_covered"
-                    android:textColor="@color/background"
+                    android:textColor="@color/full_white"
                     android:textSize="28sp" />
 
                 <TextView
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:text="@string/kcal_burnt"
-                    android:textColor="@color/background"
+                    android:textColor="@color/full_white"
                     android:textSize="28sp" />
 
             </LinearLayout>
