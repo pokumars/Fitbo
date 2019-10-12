@@ -33,7 +33,7 @@ class HistoryFragment : Fragment() {
         val time = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         Log.d("TIME","$time")
         val dataPoints = Array(StepsMangager.stepsArray.size, {DataPoint(time.toDouble(), StepsMangager.stepsArray[it].toDouble())})
-        val bGraph= LineGraphSeries<DataPoint>(dataPoints)
+        val bGraph= BarGraphSeries<DataPoint>(dataPoints)
         root.graph.addSeries(bGraph)
         root.graph.gridLabelRenderer.verticalAxisTitle ="Steps"
         root.graph.gridLabelRenderer.horizontalAxisTitle ="Time(24hr)"
