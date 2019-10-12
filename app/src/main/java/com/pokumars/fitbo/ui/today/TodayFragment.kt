@@ -37,7 +37,7 @@ class TodayFragment : Fragment(),SensorEventListener {
            stepsNumberTextView.text = stepCountString
 
            val progressBar = progress_bar
-           val targetStep =1000
+           val targetStep =todayViewModel.getStepTarget()!!
            progressBar.progress = (todayViewModel.todayStepCount()/targetStep) * 100
        }
     }

@@ -24,6 +24,8 @@ class BootReceiver: BroadcastReceiver() {
 
     fun createAlarmManager(context: Context?){
         //this is after Boot Alarm. The on start alarm is in TodayViewmodel
+
+
         Toast.makeText( context,"setting Alarm after boot", Toast.LENGTH_LONG).show()
         Log.i(TAG, "setting Alarm  after boot")
 
@@ -63,5 +65,8 @@ class StepsCheckAlarmReceiver: BroadcastReceiver() {
         Log.i(TAG, "setting alarm in inStepsCheckAlarmReceiver ${Date().toString()}")
         Log.i(TAG, "new midnight step count after selfSetting ------------- ${preferencesHelper.getMidnighStepCount()}")
         println("FITBO Alarm, Alarm, inReceiver println")
+
+
+
     }
 }

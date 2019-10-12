@@ -80,6 +80,7 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
     private fun setDefaultStepsTarget(){
         preferencesHelper.setStepTarget(3000f)
     }
+    fun getStepTarget()= preferencesHelper.getStepTarget()
 
     fun createAlarmManager(){
         appUsedBefore = preferencesHelper.getAppFirstUse()!!
@@ -100,10 +101,9 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
             // Set the alarm to start at approximately 00:00 p.m as specified in calendar.
             val calendar : Calendar = Calendar.getInstance().apply {
                 timeInMillis = System.currentTimeMillis()
-                set(Calendar.HOUR_OF_DAY, 0)
-                set(Calendar.MINUTE, 1)
+                set(Calendar.HOUR_OF_DAY, 23)
+                set(Calendar.MINUTE, 59)
                 set(Calendar.SECOND, 0)
-                set(Calendar.AM_PM, Calendar.AM)
 
             }
 
