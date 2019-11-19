@@ -27,7 +27,7 @@ class TodayFragment : Fragment(),SensorEventListener {
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 
     }
-    override fun onSensorChanged(event: SensorEvent) {
+    override fun onSensorChanged(event: SensorEvent) { 
         StepsMangager.addToStepsArray(todayViewModel.todayStepCount()       )
        if(event.sensor == steps){
            val stepCountString= String.format("%.0f",todayViewModel.todayStepCount())

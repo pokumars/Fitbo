@@ -13,7 +13,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.pokumars.fitbo.*
 import com.pokumars.fitbo.ui.TAG
-import com.pokumars.fitbo.util.BootReceiver
+import com.pokumars.fitbo.util.DeviceBootReceiver
 import com.pokumars.fitbo.util.SharedPreferencesHelper
 import com.pokumars.fitbo.util.StepsCheckAlarmReceiver
 import java.util.*
@@ -52,20 +52,18 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
         appUsedBefore = preferencesHelper.getAppFirstUse()!!
 
         //If app has been used before, then set boot receiver to enabled
-        if(!appUsedBefore){
-
-
-            Log.i(TAG, "app has been used before. setting boot receiver on")
+        if(appUsedBefore){
 
             // It will stay enabled forever until user disables it. We need to do this because if user has
             // never, ever used the app, then it would be unnecessary for the app to start counting the steps.
-            val bootReceiver = ComponentName(context , BootReceiver::class.java)
+            val bootReceiver = ComponentName(context , DeviceBootReceiver::class.java)
 
             context.packageManager.setComponentEnabledSetting(
                 bootReceiver,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP
             )
+            Log.i(TAG, "app has been used before. setting boot receiver on")
         }
     }
 
@@ -84,9 +82,6 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
 
     fun createAlarmManager(){
         appUsedBefore = preferencesHelper.getAppFirstUse()!!
-        //Toast.makeText(getApplication(), "has app been used before---> ${appUsedBefore}", Toast.LENGTH_LONG).show()
-        //Log.i(TAG, "has app been used before---> ${appUsedBefore}")
-
 
         //If app has NEVER been used, then set the alarm once and for all. and set it to used
         if(!appUsedBefore){
@@ -95,24 +90,23 @@ class TodayViewModel(application: Application) : BaseViewModel(application) {
             setWeightToEighty()
             setDefaultStepsTarget()
 
-            Toast.makeText(getApplication(), "virgin app. setting Alarm", Toast.LENGTH_LONG).show()
-            Log.i(TAG, "virgin app. setting Alarm")
-
             // Set the alarm to start at approximately 00:00 p.m as specified in calendar.
-            val calendar : Calendar = Calendar.getInstance().apply {
-                timeInMillis = System.currentTimeMillis()
-                set(Calendar.HOUR_OF_DAY, 23)
-                set(Calendar.MINUTE, 59)
-                set(Calendar.SECOND, 0)
+            val calendar = Calendar.getInstance()
+            calendar.setTimeInMillis(System.currentTimeMillis())
+            calendar.set(Calendar.HOUR_OF_DAY, 23)
+            calendar.set(Calendar.MINUTE, 59)
+            calendar.set(Calendar.SECOND, 55)
 
-            }
+            Toast.makeText(getApplication(), "virgin app. setting Alarm", Toast.LENGTH_LONG).show()
+            Log.i(TAG, "virgin app. setting Alarm. Will happen at ${calendar}")
 
             alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             alarmPendingIntent = Intent(context, StepsCheckAlarmReceiver::class.java).let { intent ->
                 PendingIntent.getBroadcast(context, 0, intent, 0)
             }
-            val oneDayInMillis =(24L * 60 * 60 *1000)
-            //val anHour = (60L * 60 *1000)
+
+            val anHour = (60L * 60 *1000)
+            val oneDayInMillis =24* anHour
             //val twoMinutes =(2L*60* 1000)
             //val tenMinutes =(10L*60* 1000)
             alarmManager?.setRepeating(
